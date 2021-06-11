@@ -24,7 +24,7 @@ plot(Grupo4)
 
 # Dia 12_21 dic 2019
 
-Precipita12_21dic2019 <- raster()
+Precipita12_21dic2019 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/1_AcumuladoDíaPrecipitacion_12_21diceimbre2019.tif")
 plot(Precipita12_21dic2019)
 
 
@@ -59,18 +59,18 @@ df12dic3 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= d
 write.csv(df12dic3, file ='3_TablaEstadisticaPrecipita12_21dic2019Grupo3.csv')
 
 MascaraPrecipita12_21dic2019topo4 <- mask(Precipita12_21dic2019, Grupo4)
-plot(MascaraSSM12_21dic2019topo4)
-minimo <- min(na.omit(as.data.frame(MascaraSSM12_21dic2019topo4))[,1])
-maximo <- max(na.omit(as.data.frame(MascaraSSM12_21dic2019topo4))[,1])
-medio <- mean(na.omit(as.data.frame(MascaraSSM12_21dic2019topo4))[,1])
-mediana <- median(na.omit(as.data.frame(MascaraSSM12_21dic2019topo4))[,1])
-desvia <- sd(na.omit(as.data.frame(MascaraSSM12_21dic2019topo4))[,1])
-df12dic4 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo4", variable= "SSM12_21dic2019")
-write.csv(df12dic4, file ='4_TablaEstadisticaSSM12_21dic2019Grupo4.csv')
+plot(MascaraPrecipita12_21dic2019topo4)
+minimo <- min(na.omit(as.data.frame(MascaraPrecipita12_21dic2019topo4))[,1])
+maximo <- max(na.omit(as.data.frame(MascaraPrecipita12_21dic2019topo4))[,1])
+medio <- mean(na.omit(as.data.frame(MascaraPrecipita12_21dic2019topo4))[,1])
+mediana <- median(na.omit(as.data.frame(MascaraPrecipita12_21dic2019topo4))[,1])
+desvia <- sd(na.omit(as.data.frame(MascaraPrecipita12_21dic2019topo4))[,1])
+df12dic4 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo4", variable= "Precipita12_21dic2019")
+write.csv(df12dic4, file ='4_TablaEstadisticaPrecipita12_21dic2019Grupo4.csv')
 
 # Dia 22 dic 2019 al 1 de enero 2020 (11 dias)
 
-Precipitacidic222019_1enero2020 <- raster()
+Precipitacidic222019_1enero2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/2_AcumuladoDíaPrecipitacion_22diceimbre2019_1Ene_true_11.tif")
 plot(Precipitacidic222019_1enero2020)
 
 
@@ -110,13 +110,13 @@ minimo <- min(na.omit(as.data.frame(MascaraSPrecipitacidic222019_1enero2020topo4
 maximo <- max(na.omit(as.data.frame(MascaraSPrecipitacidic222019_1enero2020topo4))[,1])
 medio <- mean(na.omit(as.data.frame(MascaraSPrecipitacidic222019_1enero2020topo4))[,1])
 mediana <- median(na.omit(as.data.frame(MascaraSPrecipitacidic222019_1enero2020topo4))[,1])
-desvia <- sd(na.omit(as.data.frame(MMascaraSPrecipitacidic222019_1enero2020topo4))[,1])
+desvia <- sd(na.omit(as.data.frame(MascaraSPrecipitacidic222019_1enero2020topo4))[,1])
 df22dic4 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo4", variable= "Precipitacidic222019_1enero2020")
 write.csv(df22dic4, file ='8_TablaEstadisticaPrecipitacidic222019_1enero2020Grupo4.csv')
 
 # Dia 2 al 11 de enero 2020
 
-P9 <- raster()
+P9 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/3_AcumuladoDíaPrecipitacion2_11enero.tif")
 plot(P9)
 
 
@@ -163,7 +163,7 @@ write.csv(df2enero4, file ='12_TablaEstadisticaPrecipitacion2_11enero2020Grupo4.
 
 # Dia 12 al 21 de enero 2020
 
-Precipitac12_21enero2020 <- raster()
+Precipitac12_21enero2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/4_AcumuladoDíaPrecipitacion_12_21enero.tif")
 plot(Precipitac12_21enero2020)
 
 
@@ -171,7 +171,7 @@ MascaraPrecipitac12_21enero2020topo1 <- mask(Precipitac12_21enero2020, Grupo1)
 plot(MascaraPrecipitac12_21enero2020topo1)
 minimo <- min(na.omit(as.data.frame(MascaraPrecipitac12_21enero2020topo1))[,1])
 maximo <- max(na.omit(as.data.frame(MascaraPrecipitac12_21enero2020topo1))[,1])
-medio <- mean(na.omit(as.data.frame(MMascaraPrecipitac12_21enero2020topo1))[,1])
+medio <- mean(na.omit(as.data.frame(MascaraPrecipitac12_21enero2020topo1))[,1])
 mediana <- median(na.omit(as.data.frame(MascaraPrecipitac12_21enero2020topo1))[,1])
 desvia <- sd(na.omit(as.data.frame(MascaraPrecipitac12_21enero2020topo1))[,1])
 df12enero1 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo1", variable= "Precipitac12_21enero2020")
@@ -210,39 +210,39 @@ write.csv(df12enero4, file ='16_TablaEstadisticaPrecipitac12_21enero2020Grupo4.c
 
 # Dia 22 de enero al 1 Febrero 2020 (11 dias)
 
-Precipitacenero_1febr2020 <- raster()
+Precipitacenero_1febr2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/5_AcumuladoDíaPrecipitacion22enero1febrero.tif")
 plot(Precipitacenero_1febr2020)
 
 
 MascaraPrecipitacenero_1febr2020topo1 <- mask(Precipitacenero_1febr2020, Grupo1)
-plot(MascaraSSSM22enero_1febr2020topo1)
-minimo <- min(na.omit(as.data.frame(MascaraSSSM22enero_1febr2020topo1))[,1])
-maximo <- max(na.omit(as.data.frame(MascaraSSSM22enero_1febr2020topo1))[,1])
-medio <- mean(na.omit(as.data.frame(MascaraSSSM22enero_1febr2020topo1))[,1])
-mediana <- median(na.omit(as.data.frame(MascaraSSSM22enero_1febr2020topo1))[,1])
-desvia <- sd(na.omit(as.data.frame(MascaraSSSM22enero_1febr2020topo1))[,1])
+plot(MascaraPrecipitacenero_1febr2020topo1)
+minimo <- min(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo1))[,1])
+maximo <- max(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo1))[,1])
+medio <- mean(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo1))[,1])
+mediana <- median(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo1))[,1])
+desvia <- sd(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo1))[,1])
 df22enero1 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo1", variable= "Precipitacenero_1febr2020")
 write.csv(df22enero1, file ='17_TablaEstadisticaPrecipitacenero_1febr2020Grupo1.csv')
 
 MascaraPrecipitacenero_1febr2020topo2 <- mask(Precipitacenero_1febr2020, Grupo2)
-plot(MascaraSSM22enero_1febr2020topo2)
-minimo <- min(na.omit(as.data.frame(MascaraSSM22enero_1febr2020topo2))[,1])
-maximo <- max(na.omit(as.data.frame(MascaraSSM22enero_1febr2020topo2))[,1])
-medio <- mean(na.omit(as.data.frame(MascaraSSM22enero_1febr2020topo2))[,1])
-mediana <- median(na.omit(as.data.frame(MascaraSSM22enero_1febr2020topo2))[,1])
-desvia <- sd(na.omit(as.data.frame(MascaraSSM22enero_1febr2020topo2))[,1])
+plot(MascaraPrecipitacenero_1febr2020topo2)
+minimo <- min(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo2))[,1])
+maximo <- max(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo2))[,1])
+medio <- mean(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo2))[,1])
+mediana <- median(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo2))[,1])
+desvia <- sd(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo2))[,1])
 df22enero2 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo2", variable= "Precipitacenero_1febr2020")
 write.csv(df22enero2, file ='18_TablaEstadisticaPrecipitacenero_1febr2020Grupo2.csv')
 
 MascaraPrecipitacenero_1febr2020topo3 <- mask(Precipitacenero_1febr2020, Grupo3)
-plot(MascaraSSM22enero_1febr2020topo3)
-minimo <- min(na.omit(as.data.frame(MascaraSSM22enero_1febr2020topo3))[,1])
-maximo <- max(na.omit(as.data.frame(MascaraSSM22enero_1febr2020topo3))[,1])
-medio <- mean(na.omit(as.data.frame(MascaraSSM22enero_1febr2020topo3))[,1])
-mediana <- median(na.omit(as.data.frame(MascaraSSM22enero_1febr2020topo3))[,1])
-desvia <- sd(na.omit(as.data.frame(MascaraSSM22enero_1febr2020topo3))[,1])
+plot(MascaraPrecipitacenero_1febr2020topo3)
+minimo <- min(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo3))[,1])
+maximo <- max(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo3))[,1])
+medio <- mean(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo3))[,1])
+mediana <- median(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo3))[,1])
+desvia <- sd(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo3))[,1])
 df22enero3 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo3", variable= "Precipitacenero_1febr2020")
-write.csv(ddf22enero3, file ='19_TablaEstadisticaPrecipitacenero_1febr2020Grupo3.csv')
+write.csv(df22enero3, file ='19_TablaEstadisticaPrecipitacenero_1febr2020Grupo3.csv')
 
 MascaraPrecipitacenero_1febr2020topo4 <- mask(Precipitacenero_1febr2020, Grupo4)
 plot(MascaraPrecipitacenero_1febr2020topo4)
@@ -251,13 +251,13 @@ maximo <- max(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo4))[,1])
 medio <- mean(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo4))[,1])
 mediana <- median(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo4))[,1])
 desvia <- sd(na.omit(as.data.frame(MascaraPrecipitacenero_1febr2020topo4))[,1])
-df12enero4 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo4", variable= "Precipitacenero_1febr2020")
-write.csv(df12enero4, file ='20_TablaEstadisticaSPrecipitacenero_1febr2020Grupo4.csv')
+df22enero4 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo4", variable= "Precipitacenero_1febr2020")
+write.csv(df22enero4, file ='20_TablaEstadisticaSPrecipitacenero_1febr2020Grupo4.csv')
 
 
 # Dia 2 al 11 Febrero 2020 (11 dias)
 
-Precipitac2_11febr2020 <- raster()
+Precipitac2_11febr2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/6_AcumuladoDíaPrecipitacion_2_11febrero.tif")
 plot(Precipitac2_11febr2020)
 
 
@@ -304,7 +304,7 @@ write.csv(df2Febre4, file ='24_TablaEstadisticaPrecipitac2_11febr2020Grupo4.csv'
 
 # Dia 12 al 21  Febrero 2020 (11 dias)
 
-Precipitac12_21febr2020 <- raster()
+Precipitac12_21febr2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/7_AcumuladoDíaPrecipitacion12_21febrero.tif")
 plot(Precipitac12_21febr2020)
 
 MascaraPrecipitac12_21febr2020topo1 <- mask(Precipitac12_21febr2020, Grupo1)
@@ -350,7 +350,7 @@ write.csv(df12Febre4, file ='28_TablaEstadisticaPrecipitac12_21febr2020Grupo4.cs
 
 # Dia 22  Febrero 2020 al 1 de Marzo
 
-Precipitac22febr_1Marzo2020 <- raster()
+Precipitac22febr_1Marzo2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/8_AcumuladoDíaPrecipitacion_22febrero1marzo.tif")
 plot(Precipitac22febr_1Marzo2020)
 
 
@@ -397,7 +397,7 @@ write.csv(df22Febre4, file ='32_TablaEstadisticaPrecipitac22febr_1Marzo2020Grupo
 
 # Dia 2 al 11 de Marzo
 
-Precipitac2_11Marzo2020 <- raster()
+Precipitac2_11Marzo2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/9_AcumuladoDíaPrecipitacion_2_11marzo.tif")
 plot(Precipitac2_11Marzo2020)
 
 MascaraPrecipitac2_11Marzo2020topo1 <- mask(Precipitac2_11Marzo2020, Grupo1)
@@ -442,7 +442,7 @@ write.csv(df2Marzo4, file ='36_TablaEstadisticaPrecipitac2_11Marzo2020Grupo4.csv
 
 # Dia 12 al 21 de Marzo
 
-Precipitac12_21Marzo2020 <- raster()
+Precipitac12_21Marzo2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/10_AcumuladoDíaPrecipitacion_12_21marzo.tif")
 plot(Precipitac12_21Marzo2020)
 
 
@@ -473,8 +473,8 @@ maximo <- max(na.omit(as.data.frame(MascaraPrecipitac12_21Marzo2020topo3))[,1])
 medio <- mean(na.omit(as.data.frame(MascaraPrecipitac12_21Marzo2020topo3))[,1])
 mediana <- median(na.omit(as.data.frame(MascaraPrecipitac12_21Marzo2020topo3))[,1])
 desvia <- sd(na.omit(as.data.frame(MascaraPrecipitac12_21Marzo2020topo3))[,1])
-df2Marzo3 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo3", variable= "Precipitac12_21Marzo2020")
-write.csv(df2Marzo3, file ='39_TablaEstadisticaPrecipitac12_21Marzo2020Grupo3.csv')
+df12Marzo3 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo3", variable= "Precipitac12_21Marzo2020")
+write.csv(df12Marzo3, file ='39_TablaEstadisticaPrecipitac12_21Marzo2020Grupo3.csv')
 
 MascaraPrecipitac12_21Marzo2020topo4 <- mask(Precipitac12_21Marzo2020, Grupo4)
 plot(MascaraPrecipitac12_21Marzo2020topo4)
@@ -490,7 +490,7 @@ write.csv(df12Marzo4, file ='40_TablaEstadisticaPrecipitac12_21Marzo2020Grupo4.c
 
 # Dia 22 de Marzo al 1 de abril
 
-Precipitac22Marzo_1abril2020 <- raster()
+Precipitac22Marzo_1abril2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/11_AcumuladoDíaPrecipitacion22marzo1abril.tif")
 
 
 MascaraPrecipitac22Marzo_1abril2020topo1 <- mask(Precipitac22Marzo_1abril2020, Grupo1)
@@ -536,7 +536,7 @@ write.csv(df22Marzo4, file ='44_TablaEstadisticaPrecipitac22Marzo_1abril2020Grup
 
 # Dia 2 al 11 de abril
 
-Precipitac2_11abril2020 <- raster()
+Precipitac2_11abril2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/12_AcumuladoDíaPrecipitacion_2_11abril.tif")
 plot(Precipitac2_11abril2020)
 
 
@@ -584,7 +584,7 @@ write.csv(df2abril4, file ='48_TablaEstadisticaPrecipitac2_11abril2020Grupo4.csv
 
 # Dia 12 al 21 de abril
 
-Precipitac12_21abril2020 <- raster()
+Precipitac12_21abril2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/13_AcumuladoDíaPrecipitacion_12_21abril.tif")
 plot(Precipitac12_21abril2020)
 
 MascaraPrecipitac12_21abril2020topo1 <- mask(Precipitac12_21abril2020, Grupo1)
@@ -630,7 +630,7 @@ write.csv(df12abril4, file ='52_TablaEstadisticaPrecipitac12_21abril2020Grupo4.c
 
 # Dia 22 de abril al 1 Mayo
 
-Precipitac22abril_1mayo2020 <- raster()
+Precipitac22abril_1mayo2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/14_AcumuladoDíaPrecipitacion_22abril_1mayo.tif")
 plot(Precipitac22abril_1mayo2020)
 
 
@@ -678,53 +678,53 @@ write.csv(df22abril4, file ='56_TablaEstadisticaPrecipitac22abril_1mayo2020Grupo
 
 # Dia 2 al 11 Mayo
 
-Precipitac2_11mayo2020 <- raster()
+Precipitac2_11mayo2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/15_AcumuladoDíaPrecipitacion_2_11mayo.tif")
 plot(Precipitac2_11mayo2020)
 
 MascaraPrecipitac2_11mayo2020topo1 <- mask(Precipitac2_11mayo2020, Grupo1)
-plot(MascaraSSM2_11mayo2020topo1)
-minimo <- min(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo1))[,1])
-maximo <- max(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo1))[,1])
-medio <- mean(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo1))[,1])
-mediana <- median(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo1))[,1])
-desvia <- sd(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo1))[,1])
+plot(MascaraPrecipitac2_11mayo2020topo1)
+minimo <- min(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo1))[,1])
+maximo <- max(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo1))[,1])
+medio <- mean(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo1))[,1])
+mediana <- median(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo1))[,1])
+desvia <- sd(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo1))[,1])
 df2mayo1 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo1", variable= "Precipitac2_11mayo2020")
-write.csv(df2mayo1, file ='57_TablaEstadisticaPrecipitac2_11mayo2020Grupo1.csv')
+write.csv(df2mayo1, file ='57_TablaEstadisticaPrecipitac2_11mayo20200Grupo1.csv')
 
-MascaraSSM2_11mayo2020topo2 <- mask(SSM2_11mayo2020, Grupo2)
-plot(MascaraSSM2_11mayo2020topo2)
-minimo <- min(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo2))[,1])
-maximo <- max(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo2))[,1])
-medio <- mean(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo2))[,1])
-mediana <- median(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo2))[,1])
-desvia <- sd(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo2))[,1])
+MascaraPrecipitac2_11mayo2020topo2 <- mask(Precipitac2_11mayo2020, Grupo2)
+plot(MascaraPrecipitac2_11mayo2020topo2)
+minimo <- min(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo2))[,1])
+maximo <- max(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo2))[,1])
+medio <- mean(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo2))[,1])
+mediana <- median(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo2))[,1])
+desvia <- sd(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo2))[,1])
 df2mayo2 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo2", variable= "Precipitac2_11mayo2020")
 write.csv(df2mayo2, file ='58_TablaEstadisticaPrecipitac2_11mayo2020Grupo2.csv')
 
-MascaraSSM2_11mayo2020topo3 <- mask(SSM2_11mayo2020, Grupo3)
-plot(MascaraSSM2_11mayo2020topo3 )
-minimo <- min(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo3 ))[,1])
-maximo <- max(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo3 ))[,1])
-medio <- mean(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo3 ))[,1])
-mediana <- median(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo3 ))[,1])
-desvia <- sd(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo3 ))[,1])
+MascaraPrecipitac2_11mayo2020topo3 <- mask(Precipitac2_11mayo2020, Grupo3)
+plot(MascaraPrecipitac2_11mayo2020topo3)
+minimo <- min(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo3))[,1])
+maximo <- max(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo3))[,1])
+medio <- mean(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo3))[,1])
+mediana <- median(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo3))[,1])
+desvia <- sd(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo3))[,1])
 df2mayo3 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo3", variable= "Precipitac2_11mayo2020")
 write.csv(df2mayo3, file ='59_TablaEstadisticaPrecipitac2_11mayo2020Grupo3.csv')
 
-MascaraSSM2_11mayo2020topo4 <- mask(SSM2_11mayo2020, Grupo4)
-plot(MascaraSSM2_11mayo2020topo4)
-minimo <- min(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo4))[,1])
-maximo <- max(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo4))[,1])
-medio <- mean(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo4))[,1])
-mediana <- median(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo4))[,1])
-desvia <- sd(na.omit(as.data.frame(MascaraSSM2_11mayo2020topo4))[,1])
+MascaraPrecipitac2_11mayo2020topo4 <- mask(Precipitac2_11mayo2020, Grupo4)
+plot(MascaraPrecipitac2_11mayo2020topo4)
+minimo <- min(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo4))[,1])
+maximo <- max(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo4))[,1])
+medio <- mean(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo4))[,1])
+mediana <- median(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo4))[,1])
+desvia <- sd(na.omit(as.data.frame(MascaraPrecipitac2_11mayo2020topo4))[,1])
 df2mayo4 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo4", variable= "Precipitac2_11mayo2020")
 write.csv(df2mayo4, file ='60_TablaEstadisticaPrecipitac2_11mayo2020Grupo4.csv')
 
 
 # Dia 12 al 21 Mayo
 
-Precipitac12_21mayo2020 <- raster()
+Precipitac12_21mayo2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/16_AcumuladoDíaPrecipitacion_12_21mayo.tif")
 plot(Precipitac12_21mayo2020)
 
 
@@ -771,7 +771,7 @@ write.csv(df12mayo4, file ='64_TablaEstadisticaPrecipitac12_21mayo2020Grupo4.csv
 
 # Dia 22 Mayo al 1 Junio
 
-Precipitac22mayo_1Jumio2020 <- raster()
+Precipitac22mayo_1Jumio2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/17_AcumuladoDíaPrecipitacion_22mayo_1junio.tif")
 plot(Precipitac22mayo_1Jumio2020)
 
 MascaraPrecipitac22mayo_1Jumio2020topo1 <- mask(Precipitac22mayo_1Jumio2020, Grupo1)
@@ -818,12 +818,12 @@ write.csv(df22mayo4, file ='68_TablaEstadisticaPrecipitac22mayo_1Jumio2020Grupo4
 
 # Dia 2 al 11 Junio
 
-Precipitac2_11Jumio2020 <- raster()
+Precipitac2_11Jumio2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/18_AcumuladoDíaPrecipitacion_2_11junio.tif")
 plot(Precipitac2_11Jumio2020)
 
 
 MascaraPrecipitac2_11Jumio2020topo1 <- mask(Precipitac2_11Jumio2020, Grupo1)
-plot(MascaraSSM2_11Jumio2020topo1)
+plot(MascaraPrecipitac2_11Jumio2020topo1)
 minimo <- min(na.omit(as.data.frame(MascaraPrecipitac2_11Jumio2020topo1))[,1])
 maximo <- max(na.omit(as.data.frame(MascaraPrecipitac2_11Jumio2020topo1))[,1])
 medio <- mean(na.omit(as.data.frame(MascaraPrecipitac2_11Jumio2020topo1))[,1])
@@ -866,7 +866,7 @@ write.csv(df2junio4, file ='72_TablaEstadisticaPrecipitac2_11Jumio2020Grupo4.csv
 
 # Dia 12 al 21 Junio
 
-Precipitac12_21Jumio2020 <- raster()
+Precipitac12_21Jumio2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/19_AcumuladoDíaPrecipitacion_12_21junio.tif")
 plot(Precipitac12_21Jumio2020)
 
 
@@ -915,7 +915,7 @@ write.csv(df12junio4, file ='76_TablaEstadisticaPrecipitac12_21Jumio2020Grupo4.c
 
 # Dia 22 Junio al 1 de Julio
 
-Precipitac22Jumio_2julio2020 <- raster()
+Precipitac22Jumio_2julio2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/20_AcumuladoDíaPrecipitacion_22junio_1julio.tif")
 plot(Precipitac22Jumio_2julio2020)
 
 
@@ -962,7 +962,7 @@ write.csv(df22junio4, file ='80_TablaEstadisticaPrecipitac22Jumio_2julio2020Grup
 
 # Dia 2 al 11 de Julio
 
-Precipitac2_11julio2020 <- raster()
+Precipitac2_11julio2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/21_AcumuladoDíaPrecipitacion_2_11julio.tif")
 plot(Precipitac2_11julio2020)
 
 
@@ -1009,7 +1009,7 @@ write.csv(df2Julio4, file ='84_TablaEstadisticaPrecipitac2_11julio2020Grupo4.csv
 
 # Dia 12 al 21 de Julio
 
-Precipitac12_21julio2020 <- raster()
+Precipitac12_21julio2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/22_AcumuladoDíaPrecipitacion_12_21julio.tif")
 plot(Precipitac12_21julio2020)
 
 
@@ -1055,7 +1055,7 @@ write.csv(df12Julio4, file ='88_TablaEstadisticaPrecipitac12_21julio2020Grupo4.c
 
 # Dia 22 Julio al 1 de Agosto
 
-Precipitac22julio_1agosto2020 <- raster()
+Precipitac22julio_1agosto2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/23_AcumuladoDíaPrecipitacion_22julio1agosto.tif")
 plot(Precipitac22julio_1agosto2020)
 
 
@@ -1102,7 +1102,7 @@ write.csv(df22Julio4, file ='92_TablaEstadisticaPrecipitac22julio_1agosto2020202
 
 # Dia 2 al 11 de Agosto
 
-Precipitac2_11agosto2020 <- raster()
+Precipitac2_11agosto2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/24_AcumuladoPromedioDíaPrecipitacion_2_11agosto.tif")
 plot(Precipitac2_11agosto2020)
 
 
@@ -1149,7 +1149,7 @@ write.csv(df2agosto4, file ='96_TablaEstadisticaPrecipitac2_11agosto2020Grupo4.c
 
 # Dia 12 al 21 de Agosto
 
-Precipitac12_21agosto2020 <- raster()
+Precipitac12_21agosto2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/25_AcumuladoDíaPrecipitacion_12_21agosto.tif")
 plot(Precipitac12_21agosto2020)
 
 
@@ -1196,7 +1196,7 @@ write.csv(df12agosto4, file ='100_TablaEstadisticaPrecipitac12_21agosto2020Grupo
 
 # Dia 22 de Agosto al 1 septiembre
 
-Precipitac22agosto_1septi2020 <- raster()
+Precipitac22agosto_1septi2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/26_AcumuladoDíaPrecipitacion_22_agosto_1septi.tif")
 plot(Precipitac22agosto_1septi2020)
 
 
@@ -1214,7 +1214,7 @@ MascaraPrecipitac22agosto_1septi2020topo2 <- mask(Precipitac22agosto_1septi2020,
 plot(MascaraPrecipitac22agosto_1septi2020topo2)
 minimo <- min(na.omit(as.data.frame(MascaraPrecipitac22agosto_1septi2020topo2))[,1])
 maximo <- max(na.omit(as.data.frame(MascaraPrecipitac22agosto_1septi2020topo2))[,1])
-medio <- mean(na.omit(as.data.frame(MMascaraPrecipitac22agosto_1septi2020topo2))[,1])
+medio <- mean(na.omit(as.data.frame(MascaraPrecipitac22agosto_1septi2020topo2))[,1])
 mediana <- median(na.omit(as.data.frame(MascaraPrecipitac22agosto_1septi2020topo2))[,1])
 desvia <- sd(na.omit(as.data.frame(MascaraPrecipitac22agosto_1septi2020topo2))[,1])
 df22agosto2 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo2", variable= "Precipitac22agosto_1septi2020")
@@ -1244,7 +1244,7 @@ write.csv(df22agosto4, file ='104_TablaEstadisticaPrecipitac22agosto_1septi2020G
 
 # Dia 2 al 11 septiembre
 
-Precipitac2_11septi2020 <- raster()
+Precipitac2_11septi2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/27_AcumuladoDíaPrecipitacion_2_11septiembre.tif")
 plot(Precipitac2_11septi2020)
 
 
@@ -1290,7 +1290,7 @@ write.csv(df2septiembre4, file ='108_TablaEstadisticaPrecipitac2_11septi2020Grup
 
 # Dia 12 al 21 septiembre
 
-Precipitac12_21septi2020 <- raster()
+Precipitac12_21septi2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/28_AcumuladoDíaPrecipitacion12_21septiembre.tif")
 plot(Precipitac12_21septi2020)
 
 
@@ -1338,7 +1338,7 @@ write.csv(df12septiembre4, file ='112_TablaEstadisticaPrecipitac12_21septi2020Gr
 
 # Dia 22 septiembre al 1 de octubre
 
-Precipitac12septi2020_1octubre <- raster()
+Precipitac12septi2020_1octubre <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/29_AcumuladoDíaPrecipitacion_22septiembre_1octibre.tif")
 plot(Precipitac12septi2020_1octubre)
 
 
@@ -1385,7 +1385,7 @@ write.csv(df22septiembre4, file ='116_TablaEstadisticaPrecipitac12septi2020_1oct
 
 # Dia 2 al 11  de octubre
 
-Precipitac2_11octubre2020 <- raster()
+Precipitac2_11octubre2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/30_AcumuladoDíaPrecipitacion_2_11octubre.tif")
 
 
 MascaraPrecipitac2_11octubre2020topo1 <- mask(Precipitac2_11octubre2020, Grupo1)
@@ -1430,7 +1430,7 @@ write.csv(df2Octubre4, file ='120_TablaEstadisticaPrecipitac2_11octubre2020Grupo
 
 # Dia 12 al 21 de octubre
 
-Precipitac12_21octubre2020 <- raster()
+Precipitac12_21octubre2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/31_AcumuladoDíaPrecipitacion_12_21octubre.tif")
 
 
 MascaraPrecipitac12_21octubre2020topo1 <- mask(Precipitac12_21octubre2020, Grupo1)
@@ -1439,7 +1439,7 @@ minimo <- min(na.omit(as.data.frame(MascaraPrecipitac12_21octubre2020topo1))[,1]
 maximo <- max(na.omit(as.data.frame(MascaraPrecipitac12_21octubre2020topo1))[,1])
 medio <- mean(na.omit(as.data.frame(MascaraPrecipitac12_21octubre2020topo1))[,1])
 mediana <- median(na.omit(as.data.frame(MascaraPrecipitac12_21octubre2020topo1))[,1])
-desvia <- sd(na.omit(as.data.frame(MMascaraPrecipitac12_21octubre2020topo1))[,1])
+desvia <- sd(na.omit(as.data.frame(MascaraPrecipitac12_21octubre2020topo1))[,1])
 df12Octubre1 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo1", variable= "Precipitac12_21octubre2020")
 write.csv(df12Octubre1, file ='121_TablaEstadisticaPrecipitac12_21octubre2020Grupo1.csv')
 
@@ -1449,7 +1449,7 @@ minimo <- min(na.omit(as.data.frame(MascaraPrecipitac12_21octubre2020topo2))[,1]
 maximo <- max(na.omit(as.data.frame(MascaraPrecipitac12_21octubre2020topo2))[,1])
 medio <- mean(na.omit(as.data.frame(MascaraPrecipitac12_21octubre2020topo2))[,1])
 mediana <- median(na.omit(as.data.frame(MascaraPrecipitac12_21octubre2020topo2))[,1])
-desvia <- sd(na.omit(as.data.frame(MMascaraPrecipitac12_21octubre2020topo2))[,1])
+desvia <- sd(na.omit(as.data.frame(MascaraPrecipitac12_21octubre2020topo2))[,1])
 df12Octubre2 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo2", variable= "Precipitac12_21octubre2020")
 write.csv(df12Octubre2, file ='122_TablaEstadisticaPrecipitac12_21octubre2020Grupo2.csv')
 
@@ -1476,7 +1476,7 @@ write.csv(df12Octubre4, file ='124_TablaEstadisticaPrecipitac12_21octubre2020Gru
 
 # Dia 22 de octubre 1 de nov 
 
-Precipitac22octubre_1nov2020 <- raster()
+Precipitac22octubre_1nov2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/32_AcumuladoDíaPrecipitacion_22octubre_1noviembre.tif")
 
 
 MascaraPrecipitac22octubre_1nov2020topo1 <- mask(Precipitac22octubre_1nov2020, Grupo1)
@@ -1522,7 +1522,7 @@ write.csv(df22Octubre4, file ='128_TablaEstadisticaPrecipitac22octubre_1nov2020G
 
 # Dia 2 al 11 de nov 
 
-Precipitac2_11nov2020 <- raster()
+Precipitac2_11nov2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/33_AcumuladoDíaPrecipitacion_2_11noviembre.tif")
 
 
 MascaraPrecipitac2_11nov2020topo1 <- mask(Precipitac2_11nov2020, Grupo1)
@@ -1567,7 +1567,7 @@ write.csv(df2noviembre4, file ='132_TablaEstadisticaPrecipitac2_11nov2020Grupo4.
 
 # Dia 12 al 21 de nov 
 
-Precipitac12_21nov2020 <- raster()
+Precipitac12_21nov2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/34_AcumuladoDíaPrecipitacion12_21noviembre.tif")
 
 
 MascaraPrecipitac12_21nov2020topo1 <- mask(Precipitac12_21nov2020, Grupo1)
@@ -1614,7 +1614,7 @@ write.csv(df12noviembre4, file ='136_TablaEstadisticaPrecipitac12_21nov2020Grupo
 
 # Dia 22 noviembre al 1 diciembre  
 
-Precipitac22nov_1dici2020 <- raster()
+Precipitac22nov_1dici2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/35_AcumuladoDíaPrecipitacion_22noviembre_1diciembre.tif")
 
 
 MascaraPrecipitac22nov_1dici2020topo1 <- mask(Precipitac22nov_1dici2020, Grupo1)
@@ -1661,7 +1661,7 @@ write.csv(df22noviembre4, file ='140_TablaEstadisticaPrecipitac22nov_1dici2020Gr
 
 # Dia 2 al 11 diciembre  
 
-Precipitac2_11dici2020 <- raster()
+Precipitac2_11dici2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura/36_AcumuladoDíaPrecipitacion2_11diciembre2020.tif")
 
 
 MascaraPrecipitac2_11dici2020topo1 <- mask(Precipitac2_11dici2020, Grupo1)
@@ -1705,13 +1705,16 @@ df2diciembre4 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, 
 write.csv(df2diciembre4, file ='144_TablaEstadisticaPrecipitac2_11dici2020Grupo4.csv')
 
 
+unionTabla <- rbind(df12dic1, df12dic2, df12dic3, df12dic4, df22dic1,df22dic2, df22dic3, df22dic4, df2enero1, df2enero2, df2enero3, df2enero4, df12enero1, df12enero2, df12enero3, df12enero4, df22enero1, df22enero2, df22enero3, df22enero4, df2Febre1, df2Febre2, df2Febre3, df2Febre4, df12Febre1, df12Febre2, df12Febre3, df12Febre4, df22Febre1, df22Febre2, df22Febre3, df22Febre4, df2Marzo1, df2Marzo2, df2Marzo3, df2Marzo4, df12Marzo1, df12Marzo2, df12Marzo3, df12Marzo4, df22Marzo1, df22Marzo2, df22Marzo3, df22Marzo4, df2abril1, df2abril2, df2abril3, df2abril4, df12abril1, df12abril2, df12abril3, df12abril4, df22abril1, df22abril2, df22abril3, df22abril4, df2mayo1, df2mayo2, df2mayo3, df2mayo4, df12mayo1, df12mayo2, df12mayo3, df12mayo4, df22mayo1, df22mayo2, df22mayo3, df22mayo4, df2junio1, df2junio2, df2junio3, df2junio4, df12junio1, df12junio2, df12junio3, df12junio4, df22junio1, df22junio2, df22junio3, df22junio4, df2Julio1, df2Julio2, df2Julio3, df2Julio4, df12Julio1, df12Julio2, df12Julio3, df12Julio4, df22Julio1, df22Julio2, df22Julio3, df22Julio4, df2agosto1, df2agosto2, df2agosto3, df2agosto4, df12agosto1, df12agosto2, df12agosto3, df12agosto4, df22agosto1, df22agosto2, df22agosto3, df22agosto4, df2septiembre1, df2septiembre2, df2septiembre3, df2septiembre4, df12septiembre1, df12septiembre2, df12septiembre3, df12septiembre4, df22septiembre1, df22septiembre2, df22septiembre3, df22septiembre4, df2Octubre1, df2Octubre2, df2Octubre3, df2Octubre4, df12Octubre1, df12Octubre2, df12Octubre3, df12Octubre4, df22Octubre1, df22Octubre2, df22Octubre3, df22Octubre4, df2noviembre1, df2noviembre2, df2noviembre3, df2noviembre4, df12noviembre1, df12noviembre2, df12noviembre3, df12noviembre4, df22noviembre1, df22noviembre2, df22noviembre3, df22noviembre4, df2diciembre1, df2diciembre2, df2diciembre3, df2diciembre4)
+write.csv(unionTabla, file ='144_TablaEstadisticaPrecipitacionparandvi.csv')
+
 
 # DIAS PARA FAPAR
 
 
 # Dia 12 al 21 diciembre  
 
-Precipitac12_21dici2020 <- raster()
+Precipitac12_21dici2020 <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/FAPAR/Dato de precipitación para FAPAR/36_1AcumuladoDíaPrecipitacion12_21diciembre2020.tif")
 plot(Precipitac12_21dici2020)
 
 
@@ -1745,7 +1748,7 @@ desvia <- sd(na.omit(as.data.frame(MascaraPrecipitac12_21dici2020topo3))[,1])
 df12diciembre3 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo3", variable= "Precipitac12_21dici2020")
 write.csv(df12diciembre3, file ='147_TablaEstadisticaPrecipitac12_21dici2020Grupo3.csv')
 
-MascaraPrecipitac12_21dici2020topo4 <- maskS(Precipitac12_21dici2020, Grupo4)
+MascaraPrecipitac12_21dici2020topo4 <- mask(Precipitac12_21dici2020, Grupo4)
 plot(MascaraPrecipitac12_21dici2020topo4)
 minimo <- min(na.omit(as.data.frame(MascaraPrecipitac12_21dici2020topo4))[,1])
 maximo <- max(na.omit(as.data.frame(MascaraPrecipitac12_21dici2020topo4))[,1])
@@ -1755,3 +1758,5 @@ desvia <- sd(na.omit(as.data.frame(MascaraPrecipitac12_21dici2020topo4))[,1])
 df12diciembre4 <- data.frame(min=minimo, max=maximo, mean=medio, median=mediana, sd= desvia, Grupo="Grupo4", variable= "Precipitac12_21dici2020")
 write.csv(df12diciembre4, file ='148_TablaEstadisticaPrecipitac12_21dici2020Grupo4.csv')
 
+unionTabla <- rbind(df22dic1,df22dic2, df22dic3, df22dic4, df2enero1, df2enero2, df2enero3, df2enero4, df12enero1, df12enero2, df12enero3, df12enero4, df22enero1, df22enero2, df22enero3, df22enero4, df2Febre1, df2Febre2, df2Febre3, df2Febre4, df12Febre1, df12Febre2, df12Febre3, df12Febre4, df22Febre1, df22Febre2, df22Febre3, df22Febre4, df2Marzo1, df2Marzo2, df2Marzo3, df2Marzo4, df12Marzo1, df12Marzo2, df12Marzo3, df12Marzo4, df22Marzo1, df22Marzo2, df22Marzo3, df22Marzo4, df2abril1, df2abril2, df2abril3, df2abril4, df12abril1, df12abril2, df12abril3, df12abril4, df22abril1, df22abril2, df22abril3, df22abril4, df2mayo1, df2mayo2, df2mayo3, df2mayo4, df12mayo1, df12mayo2, df12mayo3, df12mayo4, df22mayo1, df22mayo2, df22mayo3, df22mayo4, df2junio1, df2junio2, df2junio3, df2junio4, df12junio1, df12junio2, df12junio3, df12junio4, df22junio1, df22junio2, df22junio3, df22junio4, df2Julio1, df2Julio2, df2Julio3, df2Julio4, df12Julio1, df12Julio2, df12Julio3, df12Julio4, df22Julio1, df22Julio2, df22Julio3, df22Julio4, df2agosto1, df2agosto2, df2agosto3, df2agosto4, df12agosto1, df12agosto2, df12agosto3, df12agosto4, df22agosto1, df22agosto2, df22agosto3, df22agosto4, df2septiembre1, df2septiembre2, df2septiembre3, df2septiembre4, df12septiembre1, df12septiembre2, df12septiembre3, df12septiembre4, df22septiembre1, df22septiembre2, df22septiembre3, df22septiembre4, df2Octubre1, df2Octubre2, df2Octubre3, df2Octubre4, df12Octubre1, df12Octubre2, df12Octubre3, df12Octubre4, df22Octubre1, df22Octubre2, df22Octubre3, df22Octubre4, df2noviembre1, df2noviembre2, df2noviembre3, df2noviembre4, df12noviembre1, df12noviembre2, df12noviembre3, df12noviembre4, df22noviembre1, df22noviembre2, df22noviembre3, df22noviembre4, df2diciembre1, df2diciembre2, df2diciembre3, df2diciembre4, df12diciembre1, df12diciembre2, df12diciembre3, df12diciembre4)
+write.csv(unionTabla, file ='144_TablaEstadisticaPrecipitacionparaFAPAR.csv')
