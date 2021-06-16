@@ -3,71 +3,55 @@
 library(raster)
 library(rgdal)
 library(maps)
-library(dichromat)
-library(spatialEco)
 library(mapview)
 library(rasterVis)
-library(RColorBrewer)
+
 
 # ubicación del directorio de trabajo
-setwd("D:/Vegetación/Dato de 36 dias de FAPAR 2020")
+setwd("~/Codigos Inves_DIAV/Dato de 36 dias de FAPAR 2020 SIN RECORTES")
 
-
-li <- list.files("D:/Vegetación/Dato de 36 dias de FAPAR 2020", pattern = ".tiff$", full.names = TRUE)
+li <- list.files("C:/Users/diavivel/Documents/Codigos Inves_DIAV/Dato de 36 dias de FAPAR 2020 SIN RECORTES", pattern = ".tiff$", full.names = TRUE)
 st <- stack(li, quick=TRUE)
 e <- extent(st)
 
-# Grupos Topograficos
-#NAvalue(Grupo1) <- 2
-#plot(Grupo1)
-#as.factor(Grupo1) <- FALSE
 
 # Cobertura
-cobertura4grupos <- shapefile("D:/Cobertura vectorial de 5 GB/Cortes de ESP/Disolve 4 grupos cobertura correcion geo.shp")
-cobertura_4grupos_ESP <- spTransform(cobertura4grupos, CRS(projection("+proj=longlat +ellps=WGS84 +no_defs ")))
-projection(cobertura_4grupos_ESP)
+MascaraCober <- raster("C:/Users/diavivel/Documents/Codigos Inves_DIAV/Mask Cober/1_Dia1_enero2020ndvi_maskCobe.tif")
+plot(MascaraCober)
 
-Km_Topografic <- raster("D:/Georfometria R_SAGA GIS/4 ATRIBUTOS TOPOGRAFICOS/Mask Cobertura Kmeas Topografic/Kmeasn_topogra4_mascaraCoberVeg.tif")
 
-# No la he corrido hace falta corregir a FAPAR
-# Unificar archivos
-#s <- stack(list.files(pattern = ".tiff"))
-#plot(extent(s))
-
-# Extención del area de investigación
-#ex <- extent(-9.4, 4.4, 35.2, 43.9)
-
-# Stack de la extención y los archivos "tiff"
+# Stack de la extención y los archivos "tiff" ESTE ME DA EL SIGUIENTE MENSAJE Error in rgdal::getRasterData(con, offset = offs, region.dim = reg, band = object@data@band) : 
+#Failure during raster IO
 ESP_FAPAR <- stack(crop(st, e))
 plot(ESP_FAPAR)
 
-#Reproyectar a 1km (Error in rgdal::getRasterData(con, offset = offs, region.dim = reg, band = object@data@band) : 
-#Failure during raster IO
-#Además: Warning message:
-# In projectRaster(ESP_FAPAR, Km_Topografic) :
-# input and ouput crs are the same)[[1]]
-Prcj_FAPAR <- projectRaster(ESP_FAPAR [[1]], Km_Topografic)
+Prcj_FAPAR <- mask(ESP_FAPAR(P, MascaraCober), MascaraCober, method= 'ngb')
 
-MascaraFAPAR <- mask(Prcj_FAPAR, cobertura_4grupos_ESP)
-plot(MascaraFAPAR)
+#DIA 10 de enero 
+dia10enerFAPAR_2020 <-Prcj_FAPAR[[1]]
+plot(dia10enerFAPAR_2020)
+writeRaster(dia10enerFAPAR_2020, file="1_Dia10_enero2020FAPAR_maskCobe.tif")
+
+# dia 20 de enero
+dia20eneroFAPAR_2020 <-Prcj_FAPAR[[2]]
+plot(dia20eneroFAPAR_2020 )
+writeRaster(dia20eneroFAPAR_2020, file="Dia11_enero2020ndvi_maskCobe.tif")
+
+#dia 31 de enero 
+dia31enerofapar_2020 <-Prcj_FAPAR[[3]]
+plot(dia31enerofapar_2020)
+writeRaster(dia31enerofapar_2020, file="Dia21_enero2020ndvi_maskCobe.tif")
 
 
 
 
-#DIA 1 de enero 
-dia1eneroNDVI_2020 <-Prcj_NDVI[[1]]
-plot(dia1eneroNDVI_2020 )
-writeRaster(dia1eneroNDVI_2020, file="Dia1_enero2020ndvi_maskCobe.tif")
 
-# dia 11 de enero
-dia11eneroNDVI_2020 <-Prcj_NDVI[[2]]
-plot(dia11eneroNDVI_2020 )
-writeRaster(dia11eneroNDVI_2020, file="Dia11_enero2020ndvi_maskCobe.tif")
+#NO LAS HE CAMBIADO A FAPAR
 
-#dia 21 de enero 
-dia21eneroNDVI_2020 <-Prcj_NDVI[[3]]
-plot(dia21eneroNDVI_2020 )
-writeRaster(dia21eneroNDVI_2020, file="Dia21_enero2020ndvi_maskCobe.tif")
+
+
+
+
 
 # dia 1 de febrero
 dia1febreroNDVI_2020 <-Prcj_NDVI[[4]]

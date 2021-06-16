@@ -221,7 +221,34 @@ diaPrecipit_12_21dicna_true[diaPrecipit_12_21dicna_true< 0]<- NA
 plot(diaPrecipit_12_21dicna_true)
 mapview(diaPrecipit_12_21dicna_true)
 
+#FAPAR
+setwd("~/Codigos Inves_DIAV/PRECIPITACION DEL 12 AL 21 DIC 2020")
+#Unificar archivos
+s <- stack(list.files(pattern = ".tif"))
+ex <- extent(-9.4, 4.4, 35.2, 43.9)
+P <- stack(crop(s, ex))
 
+#Variable Topografi
+km_Topografic <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/Mask Cobertura Kmeas Topografic/Kmeasn_topogra4_mascaraCoberVeg.tif")
+plot(km_Topografic)
+
+#Cobertura con la mascra del dia 1 de NDVI
+MascaraCober <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36N dias de NDVI con mascara de cobertura/1_Dia1_enero2020ndvi_maskCobe.tif")
+plot(MascaraCober)
+
+mas <- mask(resample(P, MascaraCober), MascaraCober, method= 'ngb')
+
+
+#Reproyectada a 1 km, ya que estaba en 5 km y estan con vecinos cercanos
+Prc_pro <- projectRaster(mas, km_Topografic)
+plot(Prc_pro)
+
+
+# 12 al 21 dic
+diaPrecipit_12_21diciemna_true <- calc(Prc_pro[[1:10]], sum, na.rm=TRUE)
+diaPrecipit_12_21diciemna_true[diaPrecipit_12_21diciemna_true< 0]<- NA
+plot(diaPrecipit_12_21diciemna_true)
+mapview(diaPrecipit_12_21diciemna_true)
 
 
 #Guardando como imagen
@@ -262,7 +289,8 @@ writeRaster(diaPrecipit_12_21Noviena_true, file="34_AcumuladoDíaPrecipitacion12_
 writeRaster(diaPrecipit_22Nov_1dicna_true, file="35_AcumuladoDíaPrecipitacion_22noviembre_1diciembre.tif")
 writeRaster(diaPrecipit_12_21dicna_true, file="36_AcumuladoDíaPrecipitacion2_11diciembre2020.tif")
 
-
+#FAPAR
+writeRaster(diaPrecipit_12_21diciemna_true, file="36_1AcumuladoDíaPrecipitacion12_21diciembre2020.tif")
 
 
 
