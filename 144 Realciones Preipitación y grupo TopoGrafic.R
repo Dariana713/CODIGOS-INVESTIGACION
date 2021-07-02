@@ -2,7 +2,7 @@ library(raster)
 library(mapview)
 library(rgdal)
 
-km_Topografic <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/Mask Cobertura Kmeas Topografic/Kmeasn_topogra4_mascaraCoberVeg.tif")
+km_Topografic <- raster("C:/Users/DIAVIVEL/Documents/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Mask Cobertura Kmeas Topografic/Kmeasn_topogra4_mascaraCoberVeg.tif")
 plot(km_Topografic)
 mapview(km_Topografic)
 
