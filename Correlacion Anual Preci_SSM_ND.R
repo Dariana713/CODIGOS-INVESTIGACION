@@ -1,27 +1,22 @@
-require(raster)
-library(mapview)
-
-setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/FAPAR/36 DIAS DE FAPAR")
-sfapar <- stack(list.files(pattern = ".tif"))
 
 
-setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/36N dias de NDVI con mascara de cobertura")
-NDVI <- stack(list.files(pattern = ".tif"))
+setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/36 dias SSM")
+sSSMN <- stack(list.files(pattern = ".tif"))
 
-rstack1 <- stack(sfapar, NDVI)
-plot(rstack1)
+setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura")
+sprecN <- stack(list.files(pattern = ".tif"))
 
+rstack5 <- stack(sprecN, sSSMN)
+plot(rstack5)
+names(rstack5)
 
-system.time(cg2 <- gridcorts(rasterstack = rstack1, method = "pearson", type = "both"))
+system.time(cg6 <- gridcorts(rasterstack = rstack5, method = "pearson", type = "both"))
 
-#writeRaster(cg1 , file="PIXEL_CORRELATIO_SSM_FAPAR.tif")
-#saveRDS(as(cg1, 'SpatialPixelsDataFrame'), file='PIXEL_CORRELATIO_SSM_FAPAR.rds')
-
-#pRUEBAS DE RANGOS DE CORRELACION
-
-neg1 <- cg2
+df <- as.data.frame(cg1[[1]])
+areatotal <- dim(na.omit(df))
+neg1 <- cg6
 neg1[neg1 > -0.1] <- NA
-pos1 <- cg2
+pos1 <- cg6
 pos1[pos1 < 0.1] <- NA
 plot(pos1[[1]])
 mapview(pos1[[1]])
@@ -35,9 +30,9 @@ df01 <- data.frame( Corrpos=Canpos1, corrnes=Canneg1, AreaTotal=areatotal, varia
 #pRUEBAS DE RANGOS DE CORRELACION
 
 
-neg2 <- cg2
+neg2 <- cg6
 neg2[neg2 > -0.3] <- NA
-pos2 <- cg2
+pos2 <- cg6
 pos2[pos2 < 0.3] <- NA
 plot(pos2[[1]])
 mapview(pos2[[1]])
@@ -52,9 +47,9 @@ df02 <- data.frame( Corrpos=Canpos2, corrnes=Canneg2, AreaTotal=areatotal, varia
 
 df <- as.data.frame(cg1[[1]])
 dim(na.omit(df))
-neg3 <- cg2
+neg3 <- cg6
 neg3[neg3 > -0.5] <- NA
-pos3 <- cg2
+pos3 <- cg6
 pos3[pos3 < 0.5] <- NA
 plot(pos3[[1]])
 mapview(pos3[[1]])
@@ -69,9 +64,9 @@ df03 <- data.frame( Corrpos=Canpos3, corrnes=Canneg3, AreaTotal=areatotal, varia
 
 df <- as.data.frame(cg1[[1]])
 dim(na.omit(df))
-neg4 <- cg2
+neg4 <- cg6
 neg4[neg4 > -0.7] <- NA
-pos4 <- cg2
+pos4 <- cg6
 pos4[pos4 < 0.7] <- NA
 plot(pos4[[1]])
 mapview(pos4[[1]])
@@ -85,9 +80,9 @@ df04 <- data.frame( Corrpos=Canpos4, corrnes=Canneg4, AreaTotal=areatotal, varia
 
 df <- as.data.frame(cg1[[1]])
 dim(na.omit(df))
-neg5 <- cg2
+neg5 <- cg6
 neg5[neg5 > -0.9] <- NA
-pos5 <- cg2
+pos5 <- cg6
 pos5[pos5 < 0.9] <- NA
 plot(pos5[[1]])
 mapview(pos5[[1]])
@@ -97,17 +92,9 @@ Canpos5 <- dim(na.omit(as.data.frame(pos5[[1]])))
 Canneg5 <- dim(na.omit(as.data.frame(neg5[[1]])))
 df05 <- data.frame( Corrpos=Canpos5, corrnes=Canneg5, AreaTotal=areatotal, variable="Correlacion_mas_menos09")
 
-unionTabla2 <- rbind(df01, df02, df03, df04, df05)
-unionTabla2 <-unionTabla2[c(-2, -4, -6, -8, -10),]
-write.csv(unionTabla2, file ="Correlaciones_anuales_NDVIyFAPAR.csv")
-
-
-
-
-
-
-
-
+unionTabla6 <- rbind(df01, df02, df03, df04, df05)
+unionTabla6 <-unionTabla6[c(-2, -4, -6, -8, -10),]
+write.csv(unionTabla6, file ="Correlaciones_anualesPreci_SSM_ND.csv")
 
 
 
@@ -187,4 +174,3 @@ gridcorts <- function(rasterstack, method, type=c("corel","pval","both")){
       brk
     }
 }
-
