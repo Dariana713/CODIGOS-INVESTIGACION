@@ -47,8 +47,7 @@ df02 <- data.frame( Corrpos=Canpos2, corrnes=Canneg2, AreaTotal=areatotal, varia
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
-df <- as.data.frame(cg1[[1]])
-dim(na.omit(df))
+
 neg3 <- cg11
 neg3[neg3 > -0.5] <- NA
 pos3 <- cg11
@@ -64,8 +63,7 @@ df03 <- data.frame( Corrpos=Canpos3, corrnes=Canneg3, AreaTotal=areatotal, varia
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
-df <- as.data.frame(cg1[[1]])
-dim(na.omit(df))
+
 neg4 <- cg11
 neg4[neg4 > -0.7] <- NA
 pos4 <- cg11
@@ -80,8 +78,7 @@ df04 <- data.frame( Corrpos=Canpos4, corrnes=Canneg4, AreaTotal=areatotal, varia
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
-df <- as.data.frame(cg1[[1]])
-dim(na.omit(df))
+
 neg5 <- cg11
 neg5[neg5 > -0.9] <- NA
 pos5 <- cg11
