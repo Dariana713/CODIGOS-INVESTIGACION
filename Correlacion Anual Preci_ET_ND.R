@@ -14,7 +14,7 @@ plot(rstack7)
 system.time(cg8 <- gridcorts(rasterstack = rstack7, method = "pearson", type = "both"))
 
 
-df <- as.data.frame(cg1[[1]])
+df <- as.data.frame(cg8[[1]])
 areatotal <- dim(na.omit(df))
 neg1 <- cg8
 neg1[neg1 > -0.1] <- NA
@@ -47,7 +47,7 @@ df02 <- data.frame( Corrpos=Canpos2, corrnes=Canneg2, AreaTotal=areatotal, varia
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
-df <- as.data.frame(cg1[[1]])
+df <- as.data.frame(cg8[[1]])
 dim(na.omit(df))
 neg3 <- cg8
 neg3[neg3 > -0.5] <- NA
@@ -64,7 +64,7 @@ df03 <- data.frame( Corrpos=Canpos3, corrnes=Canneg3, AreaTotal=areatotal, varia
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
-df <- as.data.frame(cg1[[1]])
+df <- as.data.frame(cg8[[1]])
 dim(na.omit(df))
 neg4 <- cg8
 neg4[neg4 > -0.7] <- NA
@@ -80,7 +80,7 @@ df04 <- data.frame( Corrpos=Canpos4, corrnes=Canneg4, AreaTotal=areatotal, varia
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
-df <- as.data.frame(cg1[[1]])
+df <- as.data.frame(cg8[[1]])
 dim(na.omit(df))
 neg5 <- cg8
 neg5[neg5 > -0.9] <- NA

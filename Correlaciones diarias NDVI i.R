@@ -1,96 +1,94 @@
-#Analisis para el comportamiento de FAPAR
+
 library(raster)
+library(mapview)
+library(rasterVis)
 
-# Espacios Naturales protegidos de España
-EspacioProtegidos <- shapefile("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Zona de Estudio/enp.shp")
-EspacioProtegidos <- spTransform(EspacioProtegidos, CRS(projection("+proj=longlat +ellps=WGS84 +no_defs ")))
-projection(EspacioProtegidos)
-plot(EspacioProtegidos)
 
-#Cuencas
-CuencasESP <- shapefile("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Zona de Estudio/Cuencas de España/Cuencas de España.shp")
-CuencasESP <- spTransform(EspacioProtegidos, CRS(projection("+proj=longlat +ellps=WGS84 +no_defs ")))
-projection(CuencasESP)
-plot(CuencasESP)
-
-#Correlacion de humedad y Fapar
-
-dat <- readRDS("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/FAPAR/base_completa_fapar_ssm_pre_ET_Temp_topo.rds")
-corrf <- numeric()
+#Correlacion de SSM y NDVI revisar el orden de X (ssm) ; Y(ndvi)
+dat <- readRDS("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/base_completa_ndvi_ssm_pre_ET_Tem_topo.rds")
+corrn <- numeric()
 for (i in 1:36){
   df <- na.omit(data.frame(x=dat@data[,36+i], y=dat@data[,i]))
-  corrf[i] <- cor(df$x, df$y)
+  corrn[i] <- cor(df$x, df$y)
 }
-res <- data.frame(Día=1:36, Correlación = corrf)
-plot(res, col='white', ylim=c(-0.5, 0.5), main="Correlación SSM y FAPAR")
-lines(res)
+resn <- data.frame(Días=1:36, Correlación = corrn)
+plot(resn, col='black', ylim=c(-0.5, 0.5), main="Correlación SSM y NDVI")
+lines(resn)
 abline(h=0)
+mapview(dat)
 
-#plot(x=dat@data[,36+i], y=dat@data[,i], main="Scatterplot Example", xlab="SSM ", ylab="NDVI ")
-
-#Grupo 1 de correlacion humedad y FAPAR
+#Grupo 1 de correlacion humedad y NDVI
 dat_topo1n <- dat@data[dat@data$Kmeasn_topogra4_mascaraCoberVeg == 1, ]
-corrf1 <- numeric()
+corrn1 <- numeric()
 for (i in 1:36){
   dfn1 <- na.omit(data.frame(x=dat_topo1n[,36+i], y=dat_topo1n[,i]))
-  corrf1[i] <- cor(df$x, df$y)
+  corrn1[i] <- cor(df$x, df$y)
 }
-res_topo1n  <- data.frame(Días=1:36, Correlación = corrf1)
+res_topo1n  <- data.frame(Días=1:36, Correlación = corrn1)
 
 lines(res_topo1n, col='aquamarine4')
 
 
-#Grupo 2 de correlacion humedad y FAPAR
+#Grupo 2 de correlacion humedad y NDVI
 
 dat_topo2n <- dat@data[dat@data$Kmeasn_topogra4_mascaraCoberVeg == 2,]
-corrf2 <- numeric()
+corrn2 <- numeric()
 for (i in 1:36){
   df <- na.omit(data.frame(x=dat_topo2n[,36+i], y=dat_topo2n[,i]))
-  corrf2[i] <- cor(df$x, df$y)
+  corrn2[i] <- cor(df$x, df$y)
 }
-res_topo2n  <- data.frame(day=1:36, correlations = corrf2)
+res_topo2n  <- data.frame(day=1:36, correlations = corrn2)
 
 lines(res_topo2n, col='orange')
 
 
-#Grupo 3 de correlacion humedad y FAPAR
+#Grupo 3 de correlacion humedad y NDVI
 
 dat_topo3n <- dat@data[dat@data$Kmeasn_topogra4_mascaraCoberVeg == 3,]
-corrf3 <- numeric()
+corrn3 <- numeric()
 for (i in 1:36){
   df <- na.omit(data.frame(x=dat_topo3n[,36+i], y=dat_topo3n[,i]))
-  corrf3[i] <- cor(df$x, df$y)
+  corrn3[i] <- cor(df$x, df$y)
 }
-res_topo3n  <- data.frame(day=1:36, correlations = corrf3)
+res_topo3n  <- data.frame(day=1:36, correlations = corrn3)
 lines(res_topo3n, col='blue')
 
 
 
-#Grupo 4 de correlacion humedad y FAPAR
+#Grupo 4 de correlacion humedad y NDVI
 
 dat_topo4n <- dat@data[dat@data$Kmeasn_topogra4_mascaraCoberVeg == 4, ]
-corrf4 <- numeric()
+corrn4 <- numeric()
 for (i in 1:36){
   df <- na.omit(data.frame(x=dat_topo4n[36+i], y=dat_topo4n[,i]))
-  corrf4[i] <- cor(df$x, df$y)
+  corrn4[i] <- cor(df$x, df$y)
 }
-res_topo4n <- data.frame(day=1:36, correlations = corrf4)
+res_topo4n <- data.frame(day=1:36, correlations = corrn4)
 
 lines(res_topo4n, col='bisque')
 
 
+# FORMAS PARA RESENTAR LA LEYENDA
+legend("topright",         # Posición
+       legend = c("Grupo Topografico 1", "Grupo Topografico 2", "Grupo Topografico 3", "Grupo Topografico 4"), # Textos de la leyenda
+       col = c('aquamarine4', 'orange', 'blue','bisque'),          # Colores de las líneas
+       lwd = 2)
 
-#Correlcion de precipitacion (x) y humedad (y)
-#df <- na.omit(data.frame(x=dat@data[,i+36], y=dat@data[,i+72]))
-corr <- numeric()
+
+
+
+# PRECIPITACION Y HUMEDAD
+#Correlacion de Precipitacion con humedad revisar el orden de X (precipita) ; Y (ssm)
+corrp <- numeric()
 for (i in 1:36){
   df <- na.omit(data.frame(x=dat@data[,i+72], y=dat@data[,i+36]))
-  corr[i] <- cor(df$x, df$y)
+  corrp[i] <- cor(df$x, df$y)
 }
-res <- data.frame(day=1:36, correlations = corr)
-plot(res, col='white', ylim=c(-0.5, 0.5))
-lines(res)
+resp <- data.frame(day=1:36, correlations = corrp)
+plot(resp, col='white', ylim=c(-0.5, 0.5))
+lines(resp)
 abline(h=0)
+
 
 #Grupo 1 de correlacion Precipitacion con humedad 
 dat_topo1p <- dat@data[dat@data$Kmeasn_topogra4_mascaraCoberVeg == 1,]
@@ -139,9 +137,12 @@ res_topo4p  <- data.frame(day=1:36, correlations = corrp4)
 
 lines(res_topo4p, col='bisque')
 
+#REALIZAR MENSUAL, PERO HAY DUDAS
+dat@data$media3dias <- rowMeans(dat@data[1:3])
 
 
 
+# TEMPERATURA Y HUMEDAD Ver como hacer mensual ??????
 
-fapar <- dat@data[grep('FAPAR', names(dat@data))]
-fapar 
+#Correlacion de Temperatura con humedad revisar el orden de X (Temp) ; Y (ssm)
+dat@data$media3dias <- rowMeans(dat@data[1:3])

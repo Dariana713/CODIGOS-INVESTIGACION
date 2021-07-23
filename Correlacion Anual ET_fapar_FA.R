@@ -1,23 +1,24 @@
-library(raster)
+require(raster)
 library(mapview)
 
-setwd("~/Codigos Inves_DIAV/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/36 dias SSM")
-sSSMN <- stack(list.files(pattern = ".tif"))
+setwd("~/Codigos Inves_DIAV/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/FAPAR/12 ETFA ESP")
+ETf <- stack(list.files(pattern = ".tif"))
 
-setwd("~/Codigos Inves_DIAV/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura")
-sprecN <- stack(list.files(pattern = ".tif"))
+setwd("~/Codigos Inves_DIAV/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/FAPAR/36 DIAS DE FAPAR")
+FAPAR <- stack(list.files(pattern = ".tif"))
 
-rstack5 <- stack(sprecN, sSSMN)
-plot(rstack5)
-names(rstack5)
+rstack10 <- stack(ETf, FAPAR)
+plot(rstack10)
 
-system.time(cg6 <- gridcorts(rasterstack = rstack5, method = "pearson", type = "both"))
 
-df <- as.data.frame(cg6[[1]])
+system.time(cg11 <- gridcorts(rasterstack = rstack10, method = "pearson", type = "both"))
+
+
+df <- as.data.frame(cg11[[1]])
 areatotal <- dim(na.omit(df))
-neg1 <- cg6
+neg1 <- cg11
 neg1[neg1 > -0.1] <- NA
-pos1 <- cg6
+pos1 <- cg11
 pos1[pos1 < 0.1] <- NA
 plot(pos1[[1]])
 mapview(pos1[[1]])
@@ -25,15 +26,15 @@ plot(neg1[[1]])
 mapview(neg1[[1]])
 Canpos1<- dim(na.omit(as.data.frame(pos1[[1]])))
 Canneg1 <- dim(na.omit(as.data.frame(neg1[[1]])))
-df01 <- data.frame( Corrpos=Canpos1, corrnes=Canneg1, AreaTotal=areatotal, variable="Correlacion_mas_menos01_Preci_SSM")
+df01 <- data.frame( Corrpos=Canpos1, corrnes=Canneg1, AreaTotal=areatotal, variable="Correlacion_mas_menos01ET_Fapar")
 
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
 
-neg2 <- cg6
+neg2 <- cg11
 neg2[neg2 > -0.3] <- NA
-pos2 <- cg6
+pos2 <- cg11
 pos2[pos2 < 0.3] <- NA
 plot(pos2[[1]])
 mapview(pos2[[1]])
@@ -41,15 +42,15 @@ plot(neg2[[1]])
 mapview(neg2[[1]])
 Canpos2 <- dim(na.omit(as.data.frame(pos2[[1]])))
 Canneg2 <- dim(na.omit(as.data.frame(neg2[[1]])))
-df02 <- data.frame( Corrpos=Canpos2, corrnes=Canneg2, AreaTotal=areatotal, variable="Correlacion_mas_menos03_Preci_SSM")
+df02 <- data.frame( Corrpos=Canpos2, corrnes=Canneg2, AreaTotal=areatotal, variable="Correlacion_mas_menos03ET_Fapar")
 
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
 
-neg3 <- cg6
+neg3 <- cg11
 neg3[neg3 > -0.5] <- NA
-pos3 <- cg6
+pos3 <- cg11
 pos3[pos3 < 0.5] <- NA
 plot(pos3[[1]])
 mapview(pos3[[1]])
@@ -57,15 +58,15 @@ plot(neg[[1]])
 mapview(neg3[[1]])
 Canpos3 <- dim(na.omit(as.data.frame(pos3[[1]])))
 Canneg3 <- dim(na.omit(as.data.frame(neg3[[1]])))
-df03 <- data.frame( Corrpos=Canpos3, corrnes=Canneg3, AreaTotal=areatotal, variable="Correlacion_mas_menos05_Preci_SSM")
+df03 <- data.frame( Corrpos=Canpos3, corrnes=Canneg3, AreaTotal=areatotal, variable="Correlacion_mas_menos05ET_Fapar")
 
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
 
-neg4 <- cg6
+neg4 <- cg11
 neg4[neg4 > -0.7] <- NA
-pos4 <- cg6
+pos4 <- cg11
 pos4[pos4 < 0.7] <- NA
 plot(pos4[[1]])
 mapview(pos4[[1]])
@@ -73,14 +74,14 @@ plot(neg4[[1]])
 mapview(neg4[[1]])
 Canpos4 <- dim(na.omit(as.data.frame(pos4[[1]])))
 Canneg4 <- dim(na.omit(as.data.frame(neg4[[1]])))
-df04 <- data.frame( Corrpos=Canpos4, corrnes=Canneg4, AreaTotal=areatotal, variable="Correlacion_mas_menos07_Preci_SSM")
+df04 <- data.frame( Corrpos=Canpos4, corrnes=Canneg4, AreaTotal=areatotal, variable="Correlacion_mas_menos07ET_Fapar")
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
 
-neg5 <- cg6
+neg5 <- cg11
 neg5[neg5 > -0.9] <- NA
-pos5 <- cg6
+pos5 <- cg11
 pos5[pos5 < 0.9] <- NA
 plot(pos5[[1]])
 mapview(pos5[[1]])
@@ -88,11 +89,11 @@ plot(neg5[[1]])
 mapview(neg5[[1]])
 Canpos5 <- dim(na.omit(as.data.frame(pos5[[1]])))
 Canneg5 <- dim(na.omit(as.data.frame(neg5[[1]])))
-df05 <- data.frame( Corrpos=Canpos5, corrnes=Canneg5, AreaTotal=areatotal, variable="Correlacion_mas_menos09_Preci_SSM")
+df05 <- data.frame( Corrpos=Canpos5, corrnes=Canneg5, AreaTotal=areatotal, variable="Correlacion_mas_menos09ET_Fapar")
 
-unionTabla6 <- rbind(df01, df02, df03, df04, df05)
-unionTabla6 <-unionTabla6[c(-2, -4, -6, -8, -10),]
-write.csv(unionTabla6, file ="Correlaciones_anualesPreci_SSM_ND_2daprueba.csv")
+unionTabla11 <- rbind(df01, df02, df03, df04, df05)
+unionTabla11 <-unionTabla11[c(-2, -4, -6, -8, -10),]
+write.csv(unionTabla11, file ="Correlaciones_anuales12ET_36Faparsdaiteracion.csv")
 
 
 

@@ -1,21 +1,21 @@
 require(raster)
 library(mapview)
 
-setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/FAPAR/Humedades para FAPAR")
-sSSM <- stack(list.files(pattern = ".tif"))
+setwd("~/Codigos Inves_DIAV/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/FAPAR/Humedades para FAPAR")
+SSSMF <- stack(list.files(pattern = ".tif"))
 
 #Precipitacion
-setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/FAPAR/Dato de precipitación para FAPAR")
+setwd("~/Codigos Inves_DIAV/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/FAPAR/Dato de precipitación para FAPAR")
 sprec <- stack(list.files(pattern = ".tif"))
 
-rstack2 <- stack(sprec, sSSM)
+rstack2 <- stack(sprec, SSSMF)
 plot(rstack2)
 
 
 system.time(cg3 <- gridcorts(rasterstack = rstack2, method = "pearson", type = "both"))
 
 
-df <- as.data.frame(cg1[[1]])
+df <- as.data.frame(cg3[[1]])
 areatotal <- dim(na.omit(df))
 neg1 <- cg3
 neg1[neg1 > -0.1] <- NA
@@ -27,7 +27,7 @@ plot(neg1[[1]])
 mapview(neg1[[1]])
 Canpos1<- dim(na.omit(as.data.frame(pos1[[1]])))
 Canneg1 <- dim(na.omit(as.data.frame(neg1[[1]])))
-df01 <- data.frame( Corrpos=Canpos1, corrnes=Canneg1, AreaTotal=areatotal, variable="Correlacion_mas_menos01")
+df01 <- data.frame( Corrpos=Canpos1, corrnes=Canneg1, AreaTotal=areatotal, variable="Correlacion_mas_menos01_1apreci_ssm")
 
 
 #pRUEBAS DE RANGOS DE CORRELACION
@@ -43,13 +43,12 @@ plot(neg2[[1]])
 mapview(neg2[[1]])
 Canpos2 <- dim(na.omit(as.data.frame(pos2[[1]])))
 Canneg2 <- dim(na.omit(as.data.frame(neg2[[1]])))
-df02 <- data.frame( Corrpos=Canpos2, corrnes=Canneg2, AreaTotal=areatotal, variable="Correlacion_mas_menos03")
+df02 <- data.frame( Corrpos=Canpos2, corrnes=Canneg2, AreaTotal=areatotal, variable="Correlacion_mas_menos03_1apreci_ssm")
 
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
-df <- as.data.frame(cg1[[1]])
-dim(na.omit(df))
+
 neg3 <- cg3
 neg3[neg3 > -0.5] <- NA
 pos3 <- cg3
@@ -60,13 +59,12 @@ plot(neg[[1]])
 mapview(neg3[[1]])
 Canpos3 <- dim(na.omit(as.data.frame(pos3[[1]])))
 Canneg3 <- dim(na.omit(as.data.frame(neg3[[1]])))
-df03 <- data.frame( Corrpos=Canpos3, corrnes=Canneg3, AreaTotal=areatotal, variable="Correlacion_mas_menos05")
+df03 <- data.frame( Corrpos=Canpos3, corrnes=Canneg3, AreaTotal=areatotal, variable="Correlacion_mas_menos05_1apreci_ssm")
 
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
-df <- as.data.frame(cg1[[1]])
-dim(na.omit(df))
+
 neg4 <- cg3
 neg4[neg4 > -0.7] <- NA
 pos4 <- cg3
@@ -77,12 +75,11 @@ plot(neg4[[1]])
 mapview(neg4[[1]])
 Canpos4 <- dim(na.omit(as.data.frame(pos4[[1]])))
 Canneg4 <- dim(na.omit(as.data.frame(neg4[[1]])))
-df04 <- data.frame( Corrpos=Canpos4, corrnes=Canneg4, AreaTotal=areatotal, variable="Correlacion_mas_menos07")
+df04 <- data.frame( Corrpos=Canpos4, corrnes=Canneg4, AreaTotal=areatotal, variable="Correlacion_mas_menos07_1apreci_ssm")
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
-df <- as.data.frame(cg1[[1]])
-dim(na.omit(df))
+
 neg5 <- cg3
 neg5[neg5 > -0.9] <- NA
 pos5 <- cg3
@@ -93,11 +90,11 @@ plot(neg5[[1]])
 mapview(neg5[[1]])
 Canpos5 <- dim(na.omit(as.data.frame(pos5[[1]])))
 Canneg5 <- dim(na.omit(as.data.frame(neg5[[1]])))
-df05 <- data.frame( Corrpos=Canpos5, corrnes=Canneg5, AreaTotal=areatotal, variable="Correlacion_mas_menos09")
+df05 <- data.frame( Corrpos=Canpos5, corrnes=Canneg5, AreaTotal=areatotal, variable="Correlacion_mas_menos09_1apreci_ssm")
 
 unionTabla3 <- rbind(df01, df02, df03, df04, df05)
 unionTabla3 <-unionTabla3[c(-2, -4, -6, -8, -10),]
-write.csv(unionTabla3, file ="Correlaciones_anuales_Preci_SSM_FA.csv")
+write.csv(unionTabla3, file ="Correlaciones_anuales_Preci_SSM_FA_otra.csv")
 
 
 

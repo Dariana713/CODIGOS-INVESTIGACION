@@ -1,14 +1,14 @@
 require(raster)
 library(mapview)
 
-setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/36 dias SSM")
-sSSMF <- stack(list.files(pattern = ".tif"))
+setwd("~/Codigos Inves_DIAV/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/FAPAR/Humedades para FAPAR")
+SSSMF <- stack(list.files(pattern = ".tif"))
 
-setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/FAPAR/12 TEMFA ESP")
+setwd("~/Codigos Inves_DIAV/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/FAPAR/12 TEMFA ESP")
 tempF <- stack(list.files(pattern = ".tif"))
 
 
-rstack12 <- stack(tempF, sSSMF)
+rstack12 <- stack(tempF, SSSMF)
 plot(rstack12)
 
 
@@ -48,8 +48,7 @@ df02 <- data.frame( Corrpos=Canpos2, corrnes=Canneg2, AreaTotal=areatotal, varia
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
-df <- as.data.frame(cg1[[1]])
-dim(na.omit(df))
+
 neg3 <- cg13
 neg3[neg3 > -0.5] <- NA
 pos3 <- cg13
@@ -65,8 +64,7 @@ df03 <- data.frame( Corrpos=Canpos3, corrnes=Canneg3, AreaTotal=areatotal, varia
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
-df <- as.data.frame(cg1[[1]])
-dim(na.omit(df))
+
 neg4 <- cg13
 neg4[neg4 > -0.7] <- NA
 pos4 <- cg13
@@ -81,8 +79,7 @@ df04 <- data.frame( Corrpos=Canpos4, corrnes=Canneg4, AreaTotal=areatotal, varia
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
-df <- as.data.frame(cg1[[1]])
-dim(na.omit(df))
+
 neg5 <- cg13
 neg5[neg5 > -0.9] <- NA
 pos5 <- cg13
@@ -97,7 +94,7 @@ df05 <- data.frame( Corrpos=Canpos5, corrnes=Canneg5, AreaTotal=areatotal, varia
 
 unionTabla12 <- rbind(df01, df02, df03, df04, df05)
 unionTabla12 <-unionTabla12[c(-2, -4, -6, -8, -10),]
-write.csv(unionTabla12, file ="Correlaciones_anuales12TEMP_36SSM_FA.csv")
+write.csv(unionTabla12, file ="Correlaciones_anuales12TEMP_36SSM_FA_otra.csv")
 
 
 

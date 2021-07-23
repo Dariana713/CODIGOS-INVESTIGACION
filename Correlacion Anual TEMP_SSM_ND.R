@@ -1,10 +1,10 @@
 require(raster)
 library(mapview)
 
-setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/36 dias SSM")
+setwd("~/Codigos Inves_DIAV/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/36 dias SSM")
 sSSMN <- stack(list.files(pattern = ".tif"))
 
-setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/12 TEMPN ESP")
+setwd("~/Codigos Inves_DIAV/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/12 TEMPN ESP")
 temp <- stack(list.files(pattern = ".tif"))
 
 
@@ -15,7 +15,7 @@ plot(rstack9)
 system.time(cg10 <- gridcorts(rasterstack = rstack9, method = "pearson", type = "both"))
 
 
-df <- as.data.frame(cg1[[1]])
+df <- as.data.frame(cg10[[1]])
 areatotal <- dim(na.omit(df))
 neg1 <- cg10
 neg1[neg1 > -0.1] <- NA
@@ -27,7 +27,7 @@ plot(neg1[[1]])
 #mapview(neg1[[1]])
 Canpos1<- dim(na.omit(as.data.frame(pos1[[1]])))
 Canneg1 <- dim(na.omit(as.data.frame(neg1[[1]])))
-df01 <- data.frame( Corrpos=Canpos1, corrnes=Canneg1, AreaTotal=areatotal, variable="Correlacion_mas_menos01tempssm")
+df01 <- data.frame( Corrpos=Canpos1, corrnes=Canneg1, AreaTotal=areatotal, variable="Correlacion_mas_menos01_tempssm")
 
 
 #pRUEBAS DE RANGOS DE CORRELACION
@@ -48,8 +48,7 @@ df02 <- data.frame( Corrpos=Canpos2, corrnes=Canneg2, AreaTotal=areatotal, varia
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
-df <- as.data.frame(cg1[[1]])
-dim(na.omit(df))
+
 neg3 <- cg10
 neg3[neg3 > -0.5] <- NA
 pos3 <- cg10
@@ -65,8 +64,7 @@ df03 <- data.frame( Corrpos=Canpos3, corrnes=Canneg3, AreaTotal=areatotal, varia
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
-df <- as.data.frame(cg1[[1]])
-dim(na.omit(df))
+
 neg4 <- cg10
 neg4[neg4 > -0.7] <- NA
 pos4 <- cg10
@@ -81,8 +79,6 @@ df04 <- data.frame( Corrpos=Canpos4, corrnes=Canneg4, AreaTotal=areatotal, varia
 
 #pRUEBAS DE RANGOS DE CORRELACION
 
-df <- as.data.frame(cg1[[1]])
-dim(na.omit(df))
 neg5 <- cg10
 neg5[neg5 > -0.9] <- NA
 pos5 <- cg10
@@ -97,7 +93,7 @@ df05 <- data.frame( Corrpos=Canpos5, corrnes=Canneg5, AreaTotal=areatotal, varia
 
 unionTabla10 <- rbind(df01, df02, df03, df04, df05)
 unionTabla10 <-unionTabla10[c(-2, -4, -6, -8, -10),]
-write.csv(unionTabla10, file ="Correlaciones_anuales12TEMP_36SSM_ND.csv")
+write.csv(unionTabla10, file ="Correlaciones_anuales12TEMP_36SSM_ND_2daprueba.csv")
 
 
 
