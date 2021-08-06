@@ -15,7 +15,7 @@ CoberFAPAR$X <- row.names(CoberFAPAR)
 
 
 CoberNDVI_FAPAR <- (merge(CoberNDVI, CoberFAPAR, by = 'X'))
-corre <- cor(CoberNDVI_FAPAR$mean.x, CoberNDVI_FAPAR$mean.y, method = c("pearson"))
+correnf <- cor(CoberNDVI_FAPAR$mean.x, CoberNDVI_FAPAR$mean.y, method = c("pearson"))
 #[1] 0.8949273
 
 #Comportamiento de la NDVI en los grupos de cobertura

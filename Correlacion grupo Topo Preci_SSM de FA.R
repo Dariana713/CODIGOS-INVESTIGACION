@@ -2,7 +2,7 @@ library(raster)
 
 precipiFA <- read.csv("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas Unidas segunda prueba/FAPAR/TablaEstadisticaPrecipitacionparaFAPAR.csv")
 
-humtopFAP <- read.csv("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas Unidas segunda prueba/FAPAR/TablaEstadisticaHumedad_GrupoTopo_de_FAPAR.csv")
+humtopFAP <- read.csv("Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tabla humedad y grupo topografico/TablaEstadisticaHumedad_GrupoTopo_de_FAPAR.csv")
 
 
 str(precipiFA)
@@ -16,7 +16,7 @@ humtopFAP$X <- row.names(humtopFAP)
 
 
 Preci_humFAP <- (merge(precipiFA, humtopFAP, by = 'X'))
-corre <- cor(Preci_humFAP$mean.x, Preci_humFAP$mean.y, method = c("pearson"))
+correp <- cor(Preci_humFAP$mean.x, Preci_humFAP$mean.y, method = c("pearson"))
 
 #Comportamiento de la precipitacion en cada grupo topografico
 #media

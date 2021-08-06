@@ -2,8 +2,7 @@ library(raster)
 
 precipindvi <- read.csv("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaPrecipitacion_para_ndvi.csv")
 
-humtopo <- read.csv("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaHumedad_GrupoTopo_de_NDVI.csv")
-
+humtopo <- read.csv("Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tabla humedad y grupo topografico/TablaEstadisticaHumedad_GrupoTopo_de_NDVI.csv")
 
 str(precipindvi)
 str(humtopo)
@@ -16,7 +15,7 @@ humtopo$X <- row.names(humtopo)
 
 
 Preci_hum <- (merge(precipindvi, humtopo, by = 'X'))
-corre <- cor(Preci_hum$mean.x, Preci_hum$mean.y, method = c("pearson"))
+correpnn <- cor(Preci_hum$mean.x, Preci_hum$mean.y, method = c("pearson"))
 
 #Comportamiento de la precipitacion en cada grupo topografico
 #media

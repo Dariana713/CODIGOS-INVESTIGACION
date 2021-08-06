@@ -1,6 +1,7 @@
 library(raster)
 library(rasterVis)
-humtopo <- read.csv("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaHumedad_GrupoTopo_de_NDVI.csv")
+humtopo <- read.csv("Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tabla humedad y grupo topografico/TablaEstadisticaHumedad_GrupoTopo_de_NDVI.csv")
+
 PRECISolapNDVI <- read.csv("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaSOLAPEPrecipitacion_para_ndvi.csv")
 
 
@@ -15,7 +16,7 @@ humtopo$X <- row.names(humtopo)
 
 
 PreciS_hum <- (merge(PRECISolapNDVI, humtopo, by = 'X'))
-corre <- cor(PreciS_hum$mean.x, PreciS_hum$mean.y, method = c("pearson"))
+correpn <- cor(PreciS_hum$mean.x, PreciS_hum$mean.y, method = c("pearson"))
 
 #Comportamiento de la precipitacion con solape (5 dias antes y despues de los dias de SSM) en cada grupo topografico
 #media
