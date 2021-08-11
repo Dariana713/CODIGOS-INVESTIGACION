@@ -2,43 +2,49 @@ library(raster)
 library(mapview)
 library(rgdal)
 
-setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/36N dias de NDVI con mascara de cobertura")
+setwd("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/36N dias de NDVI con mascara de cobertura")
 ndvi <- stack(list.files(pattern = ".tif"))
 
 
-setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura")
+setwd("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/36 dias Precipitación Acumulada en base a SSM con máscara Cobertura")
 Pre <- stack(list.files(pattern = ".tif"))
 
-setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/36 dias SSM")
+setwd("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/36 dias SSM")
 humedad <- stack(list.files(pattern = ".tif"))
 
-setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/12 TEMPN ESP")
+setwd("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/12 TEMPN ESP")
 TemperaturaN <- stack(list.files(pattern = ".tif"))
 plot(TemperaturaN)
 
-setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/12_ETN ESP")
+setwd("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/12_ETN ESP")
 EvapotranspitaciónN <- stack(list.files(pattern = ".tif"))
 plot(EvapotranspitaciónN)
 
+Topografic <- raster("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/Mask Cobertura Kmeas Topografic/Kmeasn_topogra4_mascaraCoberVeg.tif")
+UnionNDVIs <- stack(ndvi, humedad, Pre, EvapotranspitaciónN, TemperaturaN, Topografic)
+b <- as(UnionNDVIs, 'SpatialPixelsDataFrame')
+saveRDS(b, file='base_completa_ndvi_ssm_pre_ET_Tem_topo.rds')
 
 
-Topografic <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/Mask Cobertura Kmeas Topografic/Kmeasn_topogra4_mascaraCoberVeg.tif")
 
+rstack9 <- stack(humedad, ndvi)
 system.time(cg10 <- gridcorts(rasterstack = rstack9, method = "pearson", type = "both"))
 cormap <- cg10[[1]]
 cormapneg <- cormap      
-cormapneg[cormapneg < -0.5] <- NA
+cormapneg[cormapneg > -0.5] <- NA
+plot(cormapneg)
 cormapos <- cormap
 cormapos[cormapos < 0.5] <- NA
+plot(cormapos)
 # Hacer el Stack
 UnionNDVI <- stack(ndvi, humedad, Pre, EvapotranspitaciónN, TemperaturaN, Topografic)
 UnionNDVIPositivo = mask(UnionNDVI, cormapneg)
 UnionNDVINegativo= mask(UnionNDVI, cormapos)
 
 a <- as(UnionNDVIPositivo, 'SpatialPixelsDataFrame')
-saveRDS(a, file='base_completa_ndvi_ssm_pre_ET_Tem_topoPOSITIVO.rds')
-b <- as(UnionNDVINegativo, 'SpatialPixelsDataFrame')
-saveRDS(b, file='base_completa_ndvi_ssm_pre_ET_Tem_topoNEGATIVO.rds')
+saveRDS(a, file='base_completa_ndvi_ssm_pre_ET_Tem_topoPOSITIVOCorregido.rds')
+s <- as(UnionNDVINegativo, 'SpatialPixelsDataFrame')
+saveRDS(s, file='base_completa_ndvi_ssm_pre_ET_Tem_topoNEGATIVOCorregido.rds')
 
 
 
