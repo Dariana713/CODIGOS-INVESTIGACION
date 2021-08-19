@@ -2,6 +2,8 @@ library(sp)
 library(raster)
 library(ggplot2)
 
+
+
 #-----------------------------------------------------------------------------------------------------------------------------------
 # 1. Set directory
 
@@ -10,21 +12,21 @@ library(ggplot2)
 # 2. Carga de datos
 
 # Abrir los CSV de tabla NDVI y tabla Humedad
-precipiFA <- read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas Unidas segunda prueba/FAPAR/TablaEstadisticaPrecipitacionparaFAPAR.csv")
-humtopFAP <- read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas Unidas segunda prueba/FAPAR/TablaEstadisticaHumedad_GrupoTopo_de_FAPAR.csv")
+precipindvi <- read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaPrecipitacion_para_ndvi.csv") 
+humtopo <-  read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Carpeta de codigos R para Carolina/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaHumedad_GrupoTopo_de_NDVI.csv")
 
-#Correlación Topo
-Preci_humFAP <- (merge(precipiFA, humtopFAP, by = 'X'))
-correp <- cor(Preci_humFAP$mean.x, Preci_humFAP$mean.y, method = c("pearson"))
-correp
-#[1] 0.2804062
+# Cálculo de correlación
+Pre_Hum <- (merge(precipindvi, humtopo, by = 'X'))
+corre   <- cor(Pre_Hum$mean.x, Pre_Hum$mean.y, method = c("pearson"))
+corre
+#[1] 0.07152969
 # Cambio de nombre : categorias
-Preci_humFAP$grupo <- ifelse(Preci_humFAP$Grupo.y =="Grupo1", "Elevación Baja", 
-                        ifelse(Preci_humFAP$Grupo.y=="Grupo2", "Elevación Media",
-                               ifelse(Preci_humFAP$Grupo.y =="Grupo3", "Elevación Alta",
-                                      ifelse(Preci_humFAP$Grupo.y =="Grupo4", "Elevación Muy Alta",""))))
+Pre_Hum$grupo <- ifelse(Pre_Hum$Grupo.y =="Grupo1", "Elevación Baja", 
+                        ifelse(Pre_Hum$Grupo.y=="Grupo2", "Elevación Media",
+                               ifelse(Pre_Hum$Grupo.y =="Grupo3", "Elevación Alta",
+                                      ifelse(Pre_Hum$Grupo.y =="Grupo4", "Elevación Muy Alta",""))))
 # Orden de variables
-level_order <- factor(Preci_humFAP$grupo, level = c('Elevación Baja', 'Elevación Media', 'Elevación Alta', 'Elevación Muy Alta'))
+level_order <- factor(Pre_Hum$grupo, level = c('Elevación Baja', 'Elevación Media', 'Elevación Alta', 'Elevación Muy Alta'))
 
 #------------------------------------------------------------------------------------------------------------------------------------
 # A. COMPORTAMIENTO DEL Precipitación EN CADA GRUPO TOPOGRAFICO
@@ -34,7 +36,7 @@ Summary(precipindvi)
 # 1a. MEDIDAS DE DISPERSIÓN
 
 ## Sub dataframe de medidas de dispersión
-dfy = Preci_humFAP[, c('mean.y', 'min.y','max.y','sd.y','median.y')]  # Slice with columns name
+dfy = Pre_Hum[, c('mean.y', 'min.y','max.y','sd.y','median.y')]  # Slice with columns name
 
 ## Grafico
 graphic01ap <- ggplot(stack(dfy), aes(x = factor(ind, levels = names(dfy)), y = values)) + 
@@ -51,7 +53,7 @@ graphic01ap <- ggplot(stack(dfy), aes(x = factor(ind, levels = names(dfy)), y = 
 
 
 # 2a. MEDIA
-graphic02ap <- ggplot(aes(y = mean.y, x = level_order), data = Preci_humFAP) + 
+graphic02ap <- ggplot(aes(y = mean.y, x = level_order), data = Pre_Hum) + 
   stat_boxplot(geom = "errorbar", width = 0.2) +
   geom_boxplot(aes(fill=level_order),    # Relleno caja
                outlier.colour = "red",  # Color de los valores atípicos
@@ -63,7 +65,7 @@ graphic02ap <- ggplot(aes(y = mean.y, x = level_order), data = Preci_humFAP) +
   geom_jitter(alpha = 0.1, width = 0.2,fill = 'black') 
 
 # 3a. DESVIACION
-graphic03ap <- ggplot(aes(y = sd.y, x = level_order), data = Preci_humFAP) + 
+graphic03ap <- ggplot(aes(y = sd.y, x = level_order), data = Pre_Hum) + 
   stat_boxplot(geom = "errorbar",        # Bigotes
                width = 0.2) +
   geom_boxplot(aes(fill=level_order),    # Relleno caja
@@ -86,19 +88,19 @@ graphic03ap # Gráfico Desviación Estandar
 # 2. Carga de datos
 
 # Abrir los CSV de tabla NDVI y tabla Humedad
-preScipindvi <-  read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas Unidas segunda prueba/FAPAR/TablaEstadisticaSOLAPEPrecipitacionparaFAPAR.csv")
+preScipindvi <- read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Carpeta de codigos R para Carolina/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaSOLAPEPrecipitacion_para_ndvi.csv")
 humtopo <-  read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Carpeta de codigos R para Carolina/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaHumedad_GrupoTopo_de_NDVI.csv")
 
 # Cálculo de correlación
 PreS_Hum <- (merge(preScipindvi, humtopo, by = 'X'))
 corre   <- cor(PreS_Hum$mean.x, PreS_Hum$mean.y, method = c("pearson"))
 corre
-#[1] -0.03399488
+#[1] 0.1766227
 # Cambio de nombre : categorias
 PreS_Hum$grupo <- ifelse(PreS_Hum$Grupo.y =="Grupo1", "Elevación Baja", 
-                         ifelse(PreS_Hum$Grupo.y=="Grupo2", "Elevación Media",
-                                ifelse(PreS_Hum$Grupo.y =="Grupo3", "Elevación Alta",
-                                       ifelse(PreS_Hum$Grupo.y =="Grupo4", "Elevación Muy Alta",""))))
+                        ifelse(PreS_Hum$Grupo.y=="Grupo2", "Elevación Media",
+                               ifelse(PreS_Hum$Grupo.y =="Grupo3", "Elevación Alta",
+                                      ifelse(PreS_Hum$Grupo.y =="Grupo4", "Elevación Muy Alta",""))))
 # Orden de variables
 level_order <- factor(PreS_Hum$grupo, level = c('Elevación Baja', 'Elevación Media', 'Elevación Alta', 'Elevación Muy Alta'))
 
@@ -167,22 +169,22 @@ graphic03apS # Gráfico Desviación Estandar
 # 2. Carga de datos
 
 # Abrir los CSV de tabla NDVI y tabla Humedad
-Prendvicober <- read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/FAPAR/TablaPrecipitacionparaFAPAR_CoberVeg.csv")
-humcober     <-  read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/FAPAR/TablaEstadisticaHumedad_CoberturaVeg_de_FAPARCORREGIDA.csv")
+Prendvicober <- read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/NDVI/TablaPrecipitacionparaNDVI_CoberVeg.csv")
+humcober     <-  read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/NDVI/TablaEstadisticaHumedad_CoberturaVeg_de_NDVICORREGIDA.csv")
 
 # Cálculo de correlación
-Preci_humFAPC <- (merge(Prendvicober, humcober, by = 'X'))
-correc   <- cor(Preci_humFAPC$mean.x, Preci_humFAPC$mean.y, method = c("pearson"))
+Pre_HumC <- (merge(Prendvicober, humcober, by = 'X'))
+correc   <- cor(Pre_HumC$mean.x, Pre_HumC$mean.y, method = c("pearson"))
 correc
-#[1]0.233624
+#[1] 0.1599943
 # Cambio de nombre : categorias
-Preci_humFAPC$grupo <- ifelse(Preci_humFAPC$Grupo.y =="CoberturaBosque", "Bosques", 
-                         ifelse(Preci_humFAPC$Grupo.y=="Cobertura_Matorral", "Matorral",
-                                ifelse(Preci_humFAPC$Grupo.y =="Cobertura_Pastizal", "Pastizal",
-                                       ifelse(Preci_humFAPC$Grupo.y =="Cobertura_VegetaEscasa", "Vegetación Escasa",""))))
+Pre_HumC$grupo <- ifelse(Pre_HumC$Grupo.y =="CoberturaBosque", "Bosques", 
+                         ifelse(Pre_HumC$Grupo.y=="Cobertura_Matorral", "Matorral",
+                                ifelse(Pre_HumC$Grupo.y =="Cobertura_Pastizal", "Pastizal",
+                                       ifelse(Pre_HumC$Grupo.y =="Cobertura_VegetaEscasa", "Vegetación Escasa",""))))
 
 # Orden de variables
-level_order <- na.omit(factor(Preci_humFAPC$grupo, level = c('Bosques', 'Matorral', 'Pastizal', 'Vegetación Escasa')))
+level_order <- na.omit(factor(Pre_HumC$grupo, level = c('Bosques', 'Matorral', 'Pastizal', 'Vegetación Escasa')))
 
 #------------------------------------------------------------------------------------------------------------------------------------
 
@@ -193,7 +195,7 @@ level_order <- na.omit(factor(Preci_humFAPC$grupo, level = c('Bosques', 'Matorra
 # 1a. MEDIDAS DE DISPERSIÓN
 
 ## Sub dataframe de medidas de dispersión
-dfx = Preci_humFAPC[, c('mean.x', 'min.x','max.x','sd.x','median.x')]  # Slice with columns name
+dfx = Pre_HumC[, c('mean.x', 'min.x','max.x','sd.x','median.x')]  # Slice with columns name
 
 ## Grafico
 graphic01PC <- ggplot(stack(dfx), aes(x = factor(ind, levels = names(dfx)), y = values)) + 
@@ -210,7 +212,7 @@ graphic01PC <- ggplot(stack(dfx), aes(x = factor(ind, levels = names(dfx)), y = 
 
 
 # 2a. MEDIA
-graphic02PC <- ggplot(aes(y = mean.x, x = level_order), data = Preci_humFAPC) + 
+graphic02PC <- ggplot(aes(y = mean.x, x = level_order), data = Pre_HumC) + 
   stat_boxplot(geom = "errorbar", width = 0.2) +
   geom_boxplot(aes(fill=level_order),    # Relleno caja
                outlier.colour = "red",  # Color de los valores atípicos
@@ -222,7 +224,7 @@ graphic02PC <- ggplot(aes(y = mean.x, x = level_order), data = Preci_humFAPC) +
   geom_jitter(alpha = 0.1, width = 0.2,fill = 'black') 
 
 # 3a. DESVIACION
-graphic03PC <- ggplot(aes(y = sd.x, x = level_order), data = Preci_humFAPC) + 
+graphic03PC <- ggplot(aes(y = sd.x, x = level_order), data = Pre_HumC) + 
   stat_boxplot(geom = "errorbar",         # Bigotes
                width = 0.2) +
   geom_boxplot(aes(fill=level_order),     # Relleno caja
@@ -245,19 +247,19 @@ graphic03PC # Gráfico Desviación Estandar
 
 # PRECIPITACION SOLAPE EN GRUPOS DE COBERTURA
 # Abrir los CSV de tabla NDVI y tabla Humedad
-Presndvicober <- read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/FAPAR/TablaSOLAPEPreci_FAPAR_CoberVeg.csv")
-humcober     <-  read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/FAPAR/TablaEstadisticaHumedad_CoberturaVeg_de_FAPARCORREGIDA.csv")
+Presndvicober <- read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/NDVI/TablaSOLAPEPreci_NDVI_CoberVeg.csv")
+humcober     <-  read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/NDVI/TablaEstadisticaHumedad_CoberturaVeg_de_NDVICORREGIDA.csv")
 
 # Cálculo de correlación
 Pres_HumC <- (merge(Presndvicober, humcober, by = 'X'))
 correc   <- cor(Pres_HumC$mean.x, Pres_HumC$mean.y, method = c("pearson"))
 correc
-#[1] 0.2251377
+#[1] 0.1599943
 # Cambio de nombre : categorias
 Pres_HumC$grupo <- ifelse(Pres_HumC$Grupo.y =="CoberturaBosque", "Bosques", 
-                          ifelse(Pres_HumC$Grupo.y=="Cobertura_Matorral", "Matorral",
-                                 ifelse(Pres_HumC$Grupo.y =="Cobertura_Pastizal", "Pastizal",
-                                        ifelse(Pres_HumC$Grupo.y =="Cobertura_VegetaEscasa", "Vegetación Escasa",""))))
+                         ifelse(Pres_HumC$Grupo.y=="Cobertura_Matorral", "Matorral",
+                                ifelse(Pres_HumC$Grupo.y =="Cobertura_Pastizal", "Pastizal",
+                                       ifelse(Pres_HumC$Grupo.y =="Cobertura_VegetaEscasa", "Vegetación Escasa",""))))
 
 # Orden de variables
 level_order <- na.omit(factor(Pres_HumC$grupo, level = c('Bosques', 'Matorral', 'Pastizal', 'Vegetación Escasa')))

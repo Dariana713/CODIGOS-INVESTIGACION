@@ -38,7 +38,7 @@ boxplot(Hum_Veg$sd.x  ~ as.factor(Hum_Veg$Grupo.x))
 #Hacer gráfico de estas de las líneas 23, 25, 27
 
 
-
+#Esto es para mostrar en word
 #Abrir los CSV de tabla NDVI y tabla Humedad
 NDVI <- read.csv("TablaEstadisticaNDVI_GrupoTopo.csv")
 Humedad_SSM <- read.csv("TablaEstadisticaHumedad_GrupoTopo_de_NDVI.csv")
