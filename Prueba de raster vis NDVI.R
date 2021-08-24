@@ -45,18 +45,22 @@ rasterToPoints(ndvi)
 test2 <- na.omit(rasterToPoints(ndvi))
 test3 <- subset(test2, select = -c(x,y))
 meanNDVI <- apply(test3,2,mean)
+medianoNDVI <- apply(test3,2,median)
 Dia <- 1:36
 NDVITiempo <- data.frame(Dia, meanNDVI)
-plot(NDVITiempo)
+NDVITiempomediano <- data.frame(Dia, medianoNDVI)
+plot(NDVITiempomediano)
 
 #Tratamiento de variables individuales ejemplo de SSM en el tiempo
 rasterToPoints(ssm)
 testssm2 <-  na.omit(rasterToPoints(ssm))
 testssm3 <- subset(testssm2, select = -c(x,y))
 meanSSM <- apply(testssm3,2,mean)
+meDIANOSSM <- apply(testssm3,2,median)
 Dia <- 1:36
+SSMTiempomediano <- data.frame(Dia, meDIANOSSM)
 SSMTiempo <- data.frame(Dia, meanSSM)
-plot(SSMTiempo)
+plot(SSMTiempomediano)
 
 
 #Tratamiento de variables individuales ejemplo de precipitacio en el tiempo
@@ -127,6 +131,7 @@ ggplot()+
 #Level
 
 levelplot(ndvi)
+
 levelplot(ndvi, layers = 1, margin = list(FUN = 'median'), contour=TRUE)
 levelplot(ssm, layers = 1, margin = list(FUN = 'median'), contour=TRUE)
 #Other NDVI
@@ -147,6 +152,7 @@ splom(pre)
 splom(ETn)
 splom(TEMPt)
 splom(TOPO)
+splom(NDVITiempo)
 
 
 

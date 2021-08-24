@@ -13,10 +13,11 @@ library(ggplot2)
 
 # Correlacion de SSM y NDVI revisar el orden de X (ssm) ; Y(ndvi)
 
-dat <- readRDS("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/Uniones rds de agosto/base_completa_ndvi_ssm_pre_ET_Tem_topoPOSITIVOCorregido_prueba2menorque05.rds")
+dat <- readRDS("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/NDVI/base_completa_ndvi_ssm_pre_ET_Tem_topo.rds")
+
 
 #-----------------------------------------------------------------------------------------------------------------------------------
-# 3. Correlación
+# 3. Correlaciónmethod = c("spearman")
 
 corrn <- numeric()
 for (i in 1:36){
@@ -24,9 +25,12 @@ for (i in 1:36){
   corrn[i] <- cor(df$x, df$y)
 }
 resn <- data.frame(Días=1:36, Correlación = corrn)
-plot(resn, col='black', ylim=c(-0.5, 0.8), main="Correlación SSM y NDVI")
+plot(resn, col='black', ylim=c(-0.5, 0.9), main="Correlación SSM y NDVI")
 lines(resn)
 abline(h=0)
+shapiro.test(corrn)
+cor.test(x=df$x, y=df$y, method="spearman")
+cor.test(x=df$x, y=df$y)
 
 # GRUPO 1 de correlacion humedad y NDVI
 dat_topo1n <- dat@data[dat@data$Kmeasn_topogra4_mascaraCoberVeg == 1, ]
@@ -130,6 +134,10 @@ resp <- data.frame(day=1:36, correlations = corrp)
 plot(resp, col='white', ylim=c(-0.5, 0.5))
 lines(resp)
 abline(h=0)
+
+shapiro.test(corrp)
+cor.test(x= dfpr$x, y= dfpr$y, method="spearman")
+cor.test(x= dfpr$x, y= dfpr$y)
 
 #Regresion
 ggplot(dfpr)+
