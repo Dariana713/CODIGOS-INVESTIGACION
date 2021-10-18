@@ -2,31 +2,31 @@ library(raster)
 library(mapview)
 library(rgdal)
 
-setwd("~/CARPETA DE TRABAJO ACTUALIZADA AL DIA - copia/Uni髇 para hacer un rds y correlaciones/FAPAR/12 TEMFA ESP")
+setwd("~/CARPETA DE TRABAJO ACTUALIZADA AL DIA - copia/Uni贸n para hacer un rds y correlaciones/FAPAR/12 TEMFA ESP")
 Temperatura <- stack(list.files(pattern = ".tif"))
 plot(Temperatura)
 
 
-setwd("~/CARPETA DE TRABAJO ACTUALIZADA AL DIA - copia/Uni髇 para hacer un rds y correlaciones/FAPAR/36 DIAS DE FAPAR")
+setwd("~/CARPETA DE TRABAJO ACTUALIZADA AL DIA - copia/Uni贸n para hacer un rds y correlaciones/FAPAR/36 DIAS DE FAPAR")
 fapar <- stack(list.files(pattern = ".tif"))
 plot(fapar)
 
-setwd("~/CARPETA DE TRABAJO ACTUALIZADA AL DIA - copia/Uni髇 para hacer un rds y correlaciones/FAPAR/12 ETFA ESP")
-Evapotranspitaci髇 <- stack(list.files(pattern = ".tif"))
-plot(Evapotranspitaci髇)
+setwd("~/CARPETA DE TRABAJO ACTUALIZADA AL DIA - copia/Uni贸n para hacer un rds y correlaciones/FAPAR/12 ETFA ESP")
+Evapotranspitaci贸n <- stack(list.files(pattern = ".tif"))
+plot(Evapotranspitaci贸n)
 
-setwd("~/CARPETA DE TRABAJO ACTUALIZADA AL DIA - copia/Uni髇 para hacer un rds y correlaciones/FAPAR/Dato de precipitaci髇 para FAPAR")
+setwd("~/CARPETA DE TRABAJO ACTUALIZADA AL DIA - copia/Uni贸n para hacer un rds y correlaciones/FAPAR/Dato de precipitaci贸n para FAPAR")
 Pre <- stack(list.files(pattern = ".tif"))
 plot(Pre)
 
-setwd("~/CARPETA DE TRABAJO ACTUALIZADA AL DIA - copia/Uni髇 para hacer un rds y correlaciones/FAPAR/Humedades para FAPAR")humedad <- stack(list.files(pattern = ".tif"))
+setwd("~/CARPETA DE TRABAJO ACTUALIZADA AL DIA - copia/Uni贸n para hacer un rds y correlaciones/FAPAR/Humedades para FAPAR")humedad <- stack(list.files(pattern = ".tif"))
 humedad <- stack(list.files(pattern = ".tif"))
 plot(humedad)
 
-Topografic <- raster("C:/Users/DIAVIVEL/Documents/CARPETA DE TRABAJO ACTUALIZADA AL DIA - copia/Uni髇 para hacer un rds y correlaciones/Mask Cobertura Kmeas Topografic/Kmeasn_topogra4_mascaraCoberVeg.tif")
+Topografic <- raster("C:/Users/DIAVIVEL/Documents/CARPETA DE TRABAJO ACTUALIZADA AL DIA - copia/Uni贸n para hacer un rds y correlaciones/Mask Cobertura Kmeas Topografic/Kmeasn_topogra4_mascaraCoberVeg.tif")
 
 
-Unionfapar <- stack(fapar, humedad, Pre, Evapotranspitaci髇, Temperatura, Topografic)
+Unionfapar <- stack(fapar, humedad, Pre, Evapotranspitaci贸n, Temperatura, Topografic)
 x <- as(Unionfapar, 'SpatialPixelsDataFrame')
 saveRDS(x, file='base_completa_fapar_ssm_pre_ET_Temp_topo.rds')
 
@@ -38,7 +38,7 @@ cormapneg[cormapneg < -0.5] <- NA
 cormapos <- cormap
 cormapos[cormapos < 0.5] <- NA
 # Hacer el Stack
-UnionFapar <- stack(fapar, humedad, Pre, Evapotranspitaci髇, Temperatura, Topografic)
+UnionFapar <- stack(fapar, humedad, Pre, Evapotranspitaci贸n, Temperatura, Topografic)
 UnionFaparPositivo = mask(UnionFapar, cormapneg)
 UnionFaparNegativo= mask(UnionFapar, cormapos)
 plot(UnionFaparPositivo)
@@ -49,6 +49,7 @@ saveRDS(d, file='base_completa_fapar_ssm_pre_ET_Tem_topoPOSITIVO.rds')
 b <- as(UnionFaparNegativo, 'SpatialPixelsDataFrame')
 saveRDS(b, file='base_completa_fapar_ssm_pre_ET_Tem_topoNEGATIVO.rds')
 
+#Codigo de Abdi, A.M., Vrieling, A., Yengoh, G.T., Anyamba, A., Seaquist, J.W., Ummenhofer, C.C. and Ard枚, J., 2016. The El Ni帽o鈥揕a Ni帽a cycle and recent trends in supply and demand of net primary productivity in African drylands. Climatic Change, 138(1-2), pp.111-125. [PDF]
 
 gridcorts <- function(rasterstack, method, type=c("corel","pval","both")){
   # Values for (layers, ncell, ncol, nrow, method, crs, extent) come straight from the input raster stack
