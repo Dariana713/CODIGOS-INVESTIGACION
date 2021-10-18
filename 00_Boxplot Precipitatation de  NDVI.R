@@ -12,42 +12,42 @@ library(ggplot2)
 # 2. Carga de datos
 
 # Abrir los CSV de tabla NDVI y tabla Humedad
-precipindvi <- read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaPrecipitacion_para_ndvi.csv") 
-humtopo <-  read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Carpeta de codigos R para Carolina/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaHumedad_GrupoTopo_de_NDVI.csv")
+precipindvi <- read.csv("D:/AnÃ¡lisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaPrecipitacion_para_ndvi.csv") 
+humtopo <-  read.csv("D:/AnÃ¡lisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Carpeta de codigos R para Carolina/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaHumedad_GrupoTopo_de_NDVI.csv")
 
-# Cálculo de correlación
+# CÃ¡lculo de correlaciÃ³n
 Pre_Hum <- (merge(precipindvi, humtopo, by = 'X'))
 corre   <- cor(Pre_Hum$mean.x, Pre_Hum$mean.y, method = c("pearson"))
 corre
 #[1] 0.07152969
 # Cambio de nombre : categorias
-Pre_Hum$grupo <- ifelse(Pre_Hum$Grupo.y =="Grupo1", "Elevación Baja", 
-                        ifelse(Pre_Hum$Grupo.y=="Grupo2", "Elevación Media",
-                               ifelse(Pre_Hum$Grupo.y =="Grupo3", "Elevación Alta",
-                                      ifelse(Pre_Hum$Grupo.y =="Grupo4", "Elevación Muy Alta",""))))
+Pre_Hum$grupo <- ifelse(Pre_Hum$Grupo.y =="Grupo1", "ElevaciÃ³n Baja", 
+                        ifelse(Pre_Hum$Grupo.y=="Grupo2", "ElevaciÃ³n Media",
+                               ifelse(Pre_Hum$Grupo.y =="Grupo3", "ElevaciÃ³n Alta",
+                                      ifelse(Pre_Hum$Grupo.y =="Grupo4", "ElevaciÃ³n Muy Alta",""))))
 # Orden de variables
-level_order <- factor(Pre_Hum$grupo, level = c('Elevación Baja', 'Elevación Media', 'Elevación Alta', 'Elevación Muy Alta'))
+level_order <- factor(Pre_Hum$grupo, level = c('ElevaciÃ³n Baja', 'ElevaciÃ³n Media', 'ElevaciÃ³n Alta', 'ElevaciÃ³n Muy Alta'))
 
 #------------------------------------------------------------------------------------------------------------------------------------
-# A. COMPORTAMIENTO DEL Precipitación EN CADA GRUPO TOPOGRAFICO
+# A. COMPORTAMIENTO DEL PrecipitaciÃ³n EN CADA GRUPO TOPOGRAFICO
 
 Summary(precipindvi)
 
-# 1a. MEDIDAS DE DISPERSIÓN
+# 1a. MEDIDAS DE DISPERSIÃ“N
 
-## Sub dataframe de medidas de dispersión
+## Sub dataframe de medidas de dispersiÃ³n
 dfy = Pre_Hum[, c('mean.y', 'min.y','max.y','sd.y','median.y')]  # Slice with columns name
 
 ## Grafico
 graphic01ap <- ggplot(stack(dfy), aes(x = factor(ind, levels = names(dfy)), y = values)) + 
-  scale_x_discrete(labels = c('Media','Desviación','Mínimo','Máximo','Mediana'))+
+  scale_x_discrete(labels = c('Media','DesviaciÃ³n','MÃ­nimo','MÃ¡ximo','Mediana'))+
   stat_boxplot(geom = "errorbar", width = 0.2) +            # Bigotes
   geom_boxplot(aes(fill=factor(ind, levels = names(dfy)))) + # BOX
-  ggtitle("Medidas de tendencia central y dispersión del comportamiento de la Precipitación en la Geomorfometría") + # Título plot
-  xlab("Medidas de tendencia central y dispersión")+    # Etiqueta del eje x
+  ggtitle("Medidas de tendencia central y dispersiÃ³n del comportamiento de la PrecipitaciÃ³n en la GeomorfometrÃ­a") + # TÃ­tulo plot
+  xlab("Medidas de tendencia central y dispersiÃ³n")+    # Etiqueta del eje x
   ylab("NDVI")+                                         # Etiqueta del eje y  
   scale_fill_brewer(name="Leyenda",
-                    labels=c('Media','Desviación','Mínimo','Máximo','Mediana'),
+                    labels=c('Media','DesviaciÃ³n','MÃ­nimo','MÃ¡ximo','Mediana'),
                     palette="Dark2")+
   geom_jitter(alpha = 0.1, width = 0.2,fill = 'black')  # Jitter points
 
@@ -56,12 +56,12 @@ graphic01ap <- ggplot(stack(dfy), aes(x = factor(ind, levels = names(dfy)), y = 
 graphic02ap <- ggplot(aes(y = mean.y, x = level_order), data = Pre_Hum) + 
   stat_boxplot(geom = "errorbar", width = 0.2) +
   geom_boxplot(aes(fill=level_order),    # Relleno caja
-               outlier.colour = "red",  # Color de los valores atípicos
+               outlier.colour = "red",  # Color de los valores atÃ­picos
                alpha = 0.9) +           # Transparencia del color de la caja
-  ggtitle("Comportamiento de la Precipitación en cada grupo topográfico") + # Título del plot
-  xlab("Categoría Geomorfométricas")+    # Etiqueta del eje x
-  ylab("Media Precipitación (mm)")+                    # Etiqueta del eje y  
-  scale_fill_discrete(name="Categoría")+
+  ggtitle("Comportamiento de la PrecipitaciÃ³n en cada grupo topogrÃ¡fico") + # TÃ­tulo del plot
+  xlab("CategorÃ­a GeomorfomÃ©tricas")+    # Etiqueta del eje x
+  ylab("Media PrecipitaciÃ³n (mm)")+                    # Etiqueta del eje y  
+  scale_fill_discrete(name="CategorÃ­a")+
   geom_jitter(alpha = 0.1, width = 0.2,fill = 'black') 
 
 # 3a. DESVIACION
@@ -69,61 +69,61 @@ graphic03ap <- ggplot(aes(y = sd.y, x = level_order), data = Pre_Hum) +
   stat_boxplot(geom = "errorbar",        # Bigotes
                width = 0.2) +
   geom_boxplot(aes(fill=level_order),    # Relleno caja
-               outlier.colour = "red",   # Color de los valores atípicos
+               outlier.colour = "red",   # Color de los valores atÃ­picos
                alpha = 0.9) +            # Transparencia del color de la caja
-  ggtitle("Comportamiento de la Precipitación en cada grupo topografico") + # Título del plot
-  xlab("Categoría Geomorfométricas")+    # Etiqueta del eje x
-  ylab("Desviación Estándar Precipitación (mm)")+      # Etiqueta del eje y  
-  scale_fill_discrete(name="Categoría")+
+  ggtitle("Comportamiento de la PrecipitaciÃ³n en cada grupo topografico") + # TÃ­tulo del plot
+  xlab("CategorÃ­a GeomorfomÃ©tricas")+    # Etiqueta del eje x
+  ylab("DesviaciÃ³n EstÃ¡ndar PrecipitaciÃ³n (mm)")+      # Etiqueta del eje y  
+  scale_fill_discrete(name="CategorÃ­a")+
   geom_jitter(alpha = 0.1, width = 0.2,fill = 'black') 
 
 # GRAFICAS
 
-graphic01ap # Grafico Medidas de dispersión
-graphic02ap # Gráfico Media
-graphic03ap # Gráfico Desviación Estandar
+graphic01ap # Grafico Medidas de dispersiÃ³n
+graphic02ap # GrÃ¡fico Media
+graphic03ap # GrÃ¡fico DesviaciÃ³n Estandar
 #------------------------------------------------------------------------------------------------------------------------------------
 
 # B. COMPORTAMIENTO DE LA solape de EN CADA GRUPO TOPOGRAFICO
 # 2. Carga de datos
 
 # Abrir los CSV de tabla NDVI y tabla Humedad
-preScipindvi <- read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Carpeta de codigos R para Carolina/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaSOLAPEPrecipitacion_para_ndvi.csv")
-humtopo <-  read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Carpeta de codigos R para Carolina/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaHumedad_GrupoTopo_de_NDVI.csv")
+preScipindvi <- read.csv("D:/AnÃ¡lisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Carpeta de codigos R para Carolina/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaSOLAPEPrecipitacion_para_ndvi.csv")
+humtopo <-  read.csv("D:/AnÃ¡lisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Carpeta de codigos R para Carolina/Tablas Unidas segunda prueba/NDVI/TablaEstadisticaHumedad_GrupoTopo_de_NDVI.csv")
 
-# Cálculo de correlación
+# CÃ¡lculo de correlaciÃ³n
 PreS_Hum <- (merge(preScipindvi, humtopo, by = 'X'))
 corre   <- cor(PreS_Hum$mean.x, PreS_Hum$mean.y, method = c("pearson"))
 corre
 #[1] 0.1766227
 # Cambio de nombre : categorias
-PreS_Hum$grupo <- ifelse(PreS_Hum$Grupo.y =="Grupo1", "Elevación Baja", 
-                        ifelse(PreS_Hum$Grupo.y=="Grupo2", "Elevación Media",
-                               ifelse(PreS_Hum$Grupo.y =="Grupo3", "Elevación Alta",
-                                      ifelse(PreS_Hum$Grupo.y =="Grupo4", "Elevación Muy Alta",""))))
+PreS_Hum$grupo <- ifelse(PreS_Hum$Grupo.y =="Grupo1", "ElevaciÃ³n Baja", 
+                        ifelse(PreS_Hum$Grupo.y=="Grupo2", "ElevaciÃ³n Media",
+                               ifelse(PreS_Hum$Grupo.y =="Grupo3", "ElevaciÃ³n Alta",
+                                      ifelse(PreS_Hum$Grupo.y =="Grupo4", "ElevaciÃ³n Muy Alta",""))))
 # Orden de variables
-level_order <- factor(PreS_Hum$grupo, level = c('Elevación Baja', 'Elevación Media', 'Elevación Alta', 'Elevación Muy Alta'))
+level_order <- factor(PreS_Hum$grupo, level = c('ElevaciÃ³n Baja', 'ElevaciÃ³n Media', 'ElevaciÃ³n Alta', 'ElevaciÃ³n Muy Alta'))
 
 #------------------------------------------------------------------------------------------------------------------------------------
-# A. COMPORTAMIENTO DEL Precipitación EN CADA GRUPO TOPOGRAFICO
+# A. COMPORTAMIENTO DEL PrecipitaciÃ³n EN CADA GRUPO TOPOGRAFICO
 
 Summary(precipindvi)
 
-# 1a. MEDIDAS DE DISPERSIÓN
+# 1a. MEDIDAS DE DISPERSIÃ“N
 
-## Sub dataframe de medidas de dispersión
+## Sub dataframe de medidas de dispersiÃ³n
 dfy = PreS_Hum[, c('mean.y', 'min.y','max.y','sd.y','median.y')]  # Slice with columns name
 
 ## Grafico
 graphic01apS <- ggplot(stack(dfy), aes(x = factor(ind, levels = names(dfy)), y = values)) + 
-  scale_x_discrete(labels = c('Media','Desviación','Mínimo','Máximo','Mediana'))+
+  scale_x_discrete(labels = c('Media','DesviaciÃ³n','MÃ­nimo','MÃ¡ximo','Mediana'))+
   stat_boxplot(geom = "errorbar", width = 0.2) +            # Bigotes
   geom_boxplot(aes(fill=factor(ind, levels = names(dfy)))) + # BOX
-  ggtitle("Medidas de tendencia central y dispersión del comportamiento de la Precipitación en la Geomorfometría") + # Título plot
-  xlab("Medidas de tendencia central y dispersión")+    # Etiqueta del eje x
+  ggtitle("Medidas de tendencia central y dispersiÃ³n del comportamiento de la PrecipitaciÃ³n en la GeomorfometrÃ­a") + # TÃ­tulo plot
+  xlab("Medidas de tendencia central y dispersiÃ³n")+    # Etiqueta del eje x
   ylab("NDVI")+                                         # Etiqueta del eje y  
   scale_fill_brewer(name="Leyenda",
-                    labels=c('Media','Desviación','Mínimo','Máximo','Mediana'),
+                    labels=c('Media','DesviaciÃ³n','MÃ­nimo','MÃ¡ximo','Mediana'),
                     palette="Dark2")+
   geom_jitter(alpha = 0.1, width = 0.2,fill = 'black')  # Jitter points
 
@@ -132,12 +132,12 @@ graphic01apS <- ggplot(stack(dfy), aes(x = factor(ind, levels = names(dfy)), y =
 graphic02apS <- ggplot(aes(y = mean.y, x = level_order), data = PreS_Hum) + 
   stat_boxplot(geom = "errorbar", width = 0.2) +
   geom_boxplot(aes(fill=level_order),    # Relleno caja
-               outlier.colour = "red",  # Color de los valores atípicos
+               outlier.colour = "red",  # Color de los valores atÃ­picos
                alpha = 0.9) +           # Transparencia del color de la caja
-  ggtitle("Comportamiento de la 2ª Iteración de Precipitación en cada grupo topográfico") + # Título del plot
-  xlab("Categoría Geomorfométricas")+    # Etiqueta del eje x
-  ylab("Media Precipitación (mm)")+                    # Etiqueta del eje y  
-  scale_fill_discrete(name="Categoría")+
+  ggtitle("Comportamiento de la 2Âª IteraciÃ³n de PrecipitaciÃ³n en cada grupo topogrÃ¡fico") + # TÃ­tulo del plot
+  xlab("CategorÃ­a GeomorfomÃ©tricas")+    # Etiqueta del eje x
+  ylab("Media PrecipitaciÃ³n (mm)")+                    # Etiqueta del eje y  
+  scale_fill_discrete(name="CategorÃ­a")+
   geom_jitter(alpha = 0.1, width = 0.2,fill = 'black') 
 
 # 3a. DESVIACION
@@ -145,19 +145,19 @@ graphic03apS <- ggplot(aes(y = sd.y, x = level_order), data = PreS_Hum) +
   stat_boxplot(geom = "errorbar",        # Bigotes
                width = 0.2) +
   geom_boxplot(aes(fill=level_order),    # Relleno caja
-               outlier.colour = "red",   # Color de los valores atípicos
+               outlier.colour = "red",   # Color de los valores atÃ­picos
                alpha = 0.9) +            # Transparencia del color de la caja
-  ggtitle("Comportamiento de la 2ª Iteración de Precipitación en cada grupo topografico") + # Título del plot
-  xlab("Categoría Geomorfométricas")+    # Etiqueta del eje x
-  ylab("Desviación Estándar Precipitación (mm)")+      # Etiqueta del eje y  
-  scale_fill_discrete(name="Categoría")+
+  ggtitle("Comportamiento de la 2Âª IteraciÃ³n de PrecipitaciÃ³n en cada grupo topografico") + # TÃ­tulo del plot
+  xlab("CategorÃ­a GeomorfomÃ©tricas")+    # Etiqueta del eje x
+  ylab("DesviaciÃ³n EstÃ¡ndar PrecipitaciÃ³n (mm)")+      # Etiqueta del eje y  
+  scale_fill_discrete(name="CategorÃ­a")+
   geom_jitter(alpha = 0.1, width = 0.2,fill = 'black') 
 
 # GRAFICAS
 
-graphic01apS # Grafico Medidas de dispersión
-graphic02apS # Gráfico Media
-graphic03apS # Gráfico Desviación Estandar
+graphic01apS # Grafico Medidas de dispersiÃ³n
+graphic02apS # GrÃ¡fico Media
+graphic03apS # GrÃ¡fico DesviaciÃ³n Estandar
 
 #------------------------------------------------------------------------------------------------------------------------------------
 
@@ -169,10 +169,10 @@ graphic03apS # Gráfico Desviación Estandar
 # 2. Carga de datos
 
 # Abrir los CSV de tabla NDVI y tabla Humedad
-Prendvicober <- read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/NDVI/TablaPrecipitacionparaNDVI_CoberVeg.csv")
-humcober     <-  read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/NDVI/TablaEstadisticaHumedad_CoberturaVeg_de_NDVICORREGIDA.csv")
+Prendvicober <- read.csv("D:/AnÃ¡lisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/NDVI/TablaPrecipitacionparaNDVI_CoberVeg.csv")
+humcober     <-  read.csv("D:/AnÃ¡lisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/NDVI/TablaEstadisticaHumedad_CoberturaVeg_de_NDVICORREGIDA.csv")
 
-# Cálculo de correlación
+# CÃ¡lculo de correlaciÃ³n
 Pre_HumC <- (merge(Prendvicober, humcober, by = 'X'))
 correc   <- cor(Pre_HumC$mean.x, Pre_HumC$mean.y, method = c("pearson"))
 correc
@@ -181,10 +181,10 @@ correc
 Pre_HumC$grupo <- ifelse(Pre_HumC$Grupo.y =="CoberturaBosque", "Bosques", 
                          ifelse(Pre_HumC$Grupo.y=="Cobertura_Matorral", "Matorral",
                                 ifelse(Pre_HumC$Grupo.y =="Cobertura_Pastizal", "Pastizal",
-                                       ifelse(Pre_HumC$Grupo.y =="Cobertura_VegetaEscasa", "Vegetación Escasa",""))))
+                                       ifelse(Pre_HumC$Grupo.y =="Cobertura_VegetaEscasa", "VegetaciÃ³n Escasa",""))))
 
 # Orden de variables
-level_order <- na.omit(factor(Pre_HumC$grupo, level = c('Bosques', 'Matorral', 'Pastizal', 'Vegetación Escasa')))
+level_order <- na.omit(factor(Pre_HumC$grupo, level = c('Bosques', 'Matorral', 'Pastizal', 'VegetaciÃ³n Escasa')))
 
 #------------------------------------------------------------------------------------------------------------------------------------
 
@@ -192,21 +192,21 @@ level_order <- na.omit(factor(Pre_HumC$grupo, level = c('Bosques', 'Matorral', '
 
 # B. COMPORTAMIENTO DE LA PRECIPITACION  EN CADA GRUPO cobertura
 
-# 1a. MEDIDAS DE DISPERSIÓN
+# 1a. MEDIDAS DE DISPERSIÃ“N
 
-## Sub dataframe de medidas de dispersión
+## Sub dataframe de medidas de dispersiÃ³n
 dfx = Pre_HumC[, c('mean.x', 'min.x','max.x','sd.x','median.x')]  # Slice with columns name
 
 ## Grafico
 graphic01PC <- ggplot(stack(dfx), aes(x = factor(ind, levels = names(dfx)), y = values)) + 
-  scale_x_discrete(labels = c('Media','Desviación','Mínimo','Máximo','Mediana'))+
+  scale_x_discrete(labels = c('Media','DesviaciÃ³n','MÃ­nimo','MÃ¡ximo','Mediana'))+
   stat_boxplot(geom = "errorbar", width = 0.2) +            # Bigotes
   geom_boxplot(aes(fill=factor(ind, levels = names(dfx)))) + # BOX
-  ggtitle("Medidas de tendencia central y dispersión del comportamiento de SSM en la Geomorfometría") + # Título plot
-  xlab("Medidas de tendencia central y dispersión")+    # Etiqueta del eje x
+  ggtitle("Medidas de tendencia central y dispersiÃ³n del comportamiento de SSM en la GeomorfometrÃ­a") + # TÃ­tulo plot
+  xlab("Medidas de tendencia central y dispersiÃ³n")+    # Etiqueta del eje x
   ylab("SSM (%)")+                                         # Etiqueta del eje y  
   scale_fill_brewer(name="Leyenda",
-                    labels=c('Media','Desviación','Mínimo','Máximo','Mediana'),
+                    labels=c('Media','DesviaciÃ³n','MÃ­nimo','MÃ¡ximo','Mediana'),
                     palette="Dark2")+
   geom_jitter(alpha = 0.1, width = 0.2,fill = 'black')  # Jitter points
 
@@ -215,12 +215,12 @@ graphic01PC <- ggplot(stack(dfx), aes(x = factor(ind, levels = names(dfx)), y = 
 graphic02PC <- ggplot(aes(y = mean.x, x = level_order), data = Pre_HumC) + 
   stat_boxplot(geom = "errorbar", width = 0.2) +
   geom_boxplot(aes(fill=level_order),    # Relleno caja
-               outlier.colour = "red",  # Color de los valores atípicos
+               outlier.colour = "red",  # Color de los valores atÃ­picos
                alpha = 0.9) +           # Transparencia del color de la caja
-  ggtitle("Comportamiento de la Precipitación en cada cobertura vegetal") + # Título del plot
+  ggtitle("Comportamiento de la PrecipitaciÃ³n en cada cobertura vegetal") + # TÃ­tulo del plot
   xlab("Cobertura Vegetal")+    # Etiqueta del eje x
-  ylab("Media de Precipitación (mm)")+                    # Etiqueta del eje y  
-  scale_fill_discrete(name="Categoría")+
+  ylab("Media de PrecipitaciÃ³n (mm)")+                    # Etiqueta del eje y  
+  scale_fill_discrete(name="CategorÃ­a")+
   geom_jitter(alpha = 0.1, width = 0.2,fill = 'black') 
 
 # 3a. DESVIACION
@@ -228,29 +228,29 @@ graphic03PC <- ggplot(aes(y = sd.x, x = level_order), data = Pre_HumC) +
   stat_boxplot(geom = "errorbar",         # Bigotes
                width = 0.2) +
   geom_boxplot(aes(fill=level_order),     # Relleno caja
-               outlier.colour = "red",    # Color de los valores atípicos
+               outlier.colour = "red",    # Color de los valores atÃ­picos
                alpha = 0.9) +             # Transparencia del color de la caja
-  ggtitle("Comportamiento de la Precipitación en cada cobertura vegetal") + # Título del plot
+  ggtitle("Comportamiento de la PrecipitaciÃ³n en cada cobertura vegetal") + # TÃ­tulo del plot
   xlab("Cobertura Vegetal")+     # Etiqueta del eje x
-  ylab("Desviación Estándar de Precipitación (mm)")+ # Etiqueta del eje y  
-  scale_fill_discrete(name="Categoría")+
+  ylab("DesviaciÃ³n EstÃ¡ndar de PrecipitaciÃ³n (mm)")+ # Etiqueta del eje y  
+  scale_fill_discrete(name="CategorÃ­a")+
   geom_jitter(alpha = 0.1, width = 0.2,fill = 'black') 
 
 # GRAFICAS
 
-#graphic01bc # Grafico Medidas de dispersión
-graphic02PC # Gráfico Media
-graphic03PC # Gráfico Desviación Estandar
+#graphic01bc # Grafico Medidas de dispersiÃ³n
+graphic02PC # GrÃ¡fico Media
+graphic03PC # GrÃ¡fico DesviaciÃ³n Estandar
 #--------
 
 #-----------------------------------------------------------------------------
 
 # PRECIPITACION SOLAPE EN GRUPOS DE COBERTURA
 # Abrir los CSV de tabla NDVI y tabla Humedad
-Presndvicober <- read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/NDVI/TablaSOLAPEPreci_NDVI_CoberVeg.csv")
-humcober     <-  read.csv("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/NDVI/TablaEstadisticaHumedad_CoberturaVeg_de_NDVICORREGIDA.csv")
+Presndvicober <- read.csv("D:/AnÃ¡lisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/NDVI/TablaSOLAPEPreci_NDVI_CoberVeg.csv")
+humcober     <-  read.csv("D:/AnÃ¡lisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/TABLAS DE LAS VARIABLES/Tablas de Cobertura y variables/NDVI/TablaEstadisticaHumedad_CoberturaVeg_de_NDVICORREGIDA.csv")
 
-# Cálculo de correlación
+# CÃ¡lculo de correlaciÃ³n
 Pres_HumC <- (merge(Presndvicober, humcober, by = 'X'))
 correc   <- cor(Pres_HumC$mean.x, Pres_HumC$mean.y, method = c("pearson"))
 correc
@@ -259,10 +259,10 @@ correc
 Pres_HumC$grupo <- ifelse(Pres_HumC$Grupo.y =="CoberturaBosque", "Bosques", 
                          ifelse(Pres_HumC$Grupo.y=="Cobertura_Matorral", "Matorral",
                                 ifelse(Pres_HumC$Grupo.y =="Cobertura_Pastizal", "Pastizal",
-                                       ifelse(Pres_HumC$Grupo.y =="Cobertura_VegetaEscasa", "Vegetación Escasa",""))))
+                                       ifelse(Pres_HumC$Grupo.y =="Cobertura_VegetaEscasa", "VegetaciÃ³n Escasa",""))))
 
 # Orden de variables
-level_order <- na.omit(factor(Pres_HumC$grupo, level = c('Bosques', 'Matorral', 'Pastizal', 'Vegetación Escasa')))
+level_order <- na.omit(factor(Pres_HumC$grupo, level = c('Bosques', 'Matorral', 'Pastizal', 'VegetaciÃ³n Escasa')))
 
 #------------------------------------------------------------------------------------------------------------------------------------
 
@@ -270,21 +270,21 @@ level_order <- na.omit(factor(Pres_HumC$grupo, level = c('Bosques', 'Matorral', 
 
 # B. COMPORTAMIENTO DE LA PRECIPITACION  EN CADA GRUPO cobertura
 
-# 1a. MEDIDAS DE DISPERSIÓN
+# 1a. MEDIDAS DE DISPERSIÃ“N
 
-## Sub dataframe de medidas de dispersión
+## Sub dataframe de medidas de dispersiÃ³n
 dfx = Pres_HumC[, c('mean.x', 'min.x','max.x','sd.x','median.x')]  # Slice with columns name
 
 ## Grafico
 graphic01PCs <- ggplot(stack(dfx), aes(x = factor(ind, levels = names(dfx)), y = values)) + 
-  scale_x_discrete(labels = c('Media','Desviación','Mínimo','Máximo','Mediana'))+
+  scale_x_discrete(labels = c('Media','DesviaciÃ³n','MÃ­nimo','MÃ¡ximo','Mediana'))+
   stat_boxplot(geom = "errorbar", width = 0.2) +            # Bigotes
   geom_boxplot(aes(fill=factor(ind, levels = names(dfx)))) + # BOX
-  ggtitle("Medidas de tendencia central y dispersión del comportamiento de SSM en la Geomorfometría") + # Título plot
-  xlab("Medidas de tendencia central y dispersión")+    # Etiqueta del eje x
+  ggtitle("Medidas de tendencia central y dispersiÃ³n del comportamiento de SSM en la GeomorfometrÃ­a") + # TÃ­tulo plot
+  xlab("Medidas de tendencia central y dispersiÃ³n")+    # Etiqueta del eje x
   ylab("SSM (%)")+                                         # Etiqueta del eje y  
   scale_fill_brewer(name="Leyenda",
-                    labels=c('Media','Desviación','Mínimo','Máximo','Mediana'),
+                    labels=c('Media','DesviaciÃ³n','MÃ­nimo','MÃ¡ximo','Mediana'),
                     palette="Dark2")+
   geom_jitter(alpha = 0.1, width = 0.2,fill = 'black')  # Jitter points
 
@@ -293,12 +293,12 @@ graphic01PCs <- ggplot(stack(dfx), aes(x = factor(ind, levels = names(dfx)), y =
 graphic02PCs <- ggplot(aes(y = mean.x, x = level_order), data = Pres_HumC) + 
   stat_boxplot(geom = "errorbar", width = 0.2) +
   geom_boxplot(aes(fill=level_order),    # Relleno caja
-               outlier.colour = "red",  # Color de los valores atípicos
+               outlier.colour = "red",  # Color de los valores atÃ­picos
                alpha = 0.9) +           # Transparencia del color de la caja
-  ggtitle("Comportamiento de la 2ª Precipitación en cada cobertura vegetal") + # Título del plot
+  ggtitle("Comportamiento de la 2Âª PrecipitaciÃ³n en cada cobertura vegetal") + # TÃ­tulo del plot
   xlab("Cobertura Vegetal")+    # Etiqueta del eje x
-  ylab("Media de Precipitación (mm)")+                    # Etiqueta del eje y  
-  scale_fill_discrete(name="Categoría")+
+  ylab("Media de PrecipitaciÃ³n (mm)")+                    # Etiqueta del eje y  
+  scale_fill_discrete(name="CategorÃ­a")+
   geom_jitter(alpha = 0.1, width = 0.2,fill = 'black') 
 
 # 3a. DESVIACION
@@ -306,17 +306,17 @@ graphic03PCs <- ggplot(aes(y = sd.x, x = level_order), data = Pres_HumC) +
   stat_boxplot(geom = "errorbar",         # Bigotes
                width = 0.2) +
   geom_boxplot(aes(fill=level_order),     # Relleno caja
-               outlier.colour = "red",    # Color de los valores atípicos
+               outlier.colour = "red",    # Color de los valores atÃ­picos
                alpha = 0.9) +             # Transparencia del color de la caja
-  ggtitle("Comportamiento de la 2ª Precipitación en cada cobertura vegetal") + # Título del plot
+  ggtitle("Comportamiento de la 2Âª PrecipitaciÃ³n en cada cobertura vegetal") + # TÃ­tulo del plot
   xlab("Cobertura Vegetal")+     # Etiqueta del eje x
-  ylab("Desviación Estándar de Precipitación (mm)")+ # Etiqueta del eje y  
-  scale_fill_discrete(name="Categoría")+
+  ylab("DesviaciÃ³n EstÃ¡ndar de PrecipitaciÃ³n (mm)")+ # Etiqueta del eje y  
+  scale_fill_discrete(name="CategorÃ­a")+
   geom_jitter(alpha = 0.1, width = 0.2,fill = 'black') 
 
 # GRAFICAS
 
-#graphic01bc # Grafico Medidas de dispersión
-graphic02PCs # Gráfico Media
-graphic03PCs # Gráfico Desviación Estandar
+#graphic01bc # Grafico Medidas de dispersiÃ³n
+graphic02PCs # GrÃ¡fico Media
+graphic03PCs # GrÃ¡fico DesviaciÃ³n Estandar
 #--------
