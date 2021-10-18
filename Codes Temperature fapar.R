@@ -1,13 +1,13 @@
-#TEMPERATURA mensual (ºC)
+#TEMPERATURA mensual (ÂºC)
 
 
-#Cargar librería raster 
+#Cargar librerÃ­a raster 
 library(raster)
 library(rgdal)
 
 
-#Ubicación tEMPERATURA
-setwd("~/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/FAPAR/Temperatura FAPAR")
+#UbicaciÃ³n tEMPERATURA
+setwd("~/AnÃ¡lisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/UniÃ³n para hacer un rds y correlaciones/FAPAR/Temperatura FAPAR")
 
 # Limites
 #limn <- getData('GADM', country='ESP', level=2)
@@ -19,11 +19,11 @@ ex <- extent(-9.4, 4.4, 35.2, 43.9)
 Temp <- stack(crop(s, ex))
 
 #Variable Topografi
-km_Topografic <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/Mask Cobertura Kmeas Topografic/Kmeasn_topogra4_mascaraCoberVeg.tif")
+km_Topografic <- raster("C:/Users/Usuario/Documents/AnÃ¡lisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/Mask Cobertura Kmeas Topografic/Kmeasn_topogra4_mascaraCoberVeg.tif")
 plot(km_Topografic)
 
 #Cobertura con la mascra del dia 1 de NDVI
-#MascaraCober <- raster("C:/Users/Usuario/Documents/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36N dias de NDVI con mascara de cobertura/1_Dia1_enero2020ndvi_maskCobe.tif")
+#MascaraCober <- raster("C:/Users/Usuario/Documents/AnÃ¡lisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/36N dias de NDVI con mascara de cobertura/1_Dia1_enero2020ndvi_maskCobe.tif")
 #plot(MascaraCober)
 
 mas <- mask(resample(Temp, km_Topografic), km_Topografic, method= 'ngb')
