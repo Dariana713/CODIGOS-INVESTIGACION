@@ -13,19 +13,19 @@ library(ggplot2)
 
 # Correlacion de SSM y NDVI revisar el orden de X (ssm) ; Y(ndvi)
 
-dat <- readRDS("D:/An醠isis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Uni髇 para hacer un rds y correlaciones/NDVI/base_completa_ndvi_ssm_pre_ET_Tem_topo.rds")
+dat <- readRDS("D:/An谩lisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Uni贸n para hacer un rds y correlaciones/NDVI/base_completa_ndvi_ssm_pre_ET_Tem_topo.rds")
 
 
 #-----------------------------------------------------------------------------------------------------------------------------------
-# 3. Correlaci髇method = c("spearman")
+# 3. Correlaci贸nmethod = c("spearman")
 
 corrn <- numeric()
 for (i in 1:36){
   df <- na.omit(data.frame(x=dat@data[,36+i], y=dat@data[,i]))
   corrn[i] <- cor(df$x, df$y)
 }
-resn <- data.frame(D韆s=1:36, Correlaci髇 = corrn)
-plot(resn, col='black', ylim=c(-0.5, 0.9), main="Correlaci髇 SSM y NDVI")
+resn <- data.frame(D铆as=1:36, Correlaci贸n = corrn)
+plot(resn, col='black', ylim=c(-0.5, 0.9), main="Correlaci贸n SSM y NDVI")
 lines(resn)
 abline(h=0)
 shapiro.test(corrn)
@@ -39,7 +39,7 @@ for (i in 1:36){
   dfn1 <- na.omit(data.frame(x=dat_topo1n[,36+i], y=dat_topo1n[,i]))
   corrn1[i] <- cor(dfn1$x, dfn1$y)
 }
-res_topo1n  <- data.frame(D韆s=1:36, Correlaci髇 = corrn1)
+res_topo1n  <- data.frame(D铆as=1:36, Correlaci贸n = corrn1)
 
 lines(res_topo1n, col='aquamarine4')
 
@@ -80,7 +80,7 @@ res_topo4n <- data.frame(day=1:36, correlations = corrn4)
 lines(res_topo4n, col='bisque')
 
 #-----------------------------------------------------------------------------------------------------------------------------------
-# 4. Gr醘ico
+# 4. Gr谩fico
 
 df_restopon <- data.frame(c(resn[,(1:2)]), 
                           c(res_topo1n[,2]),
@@ -103,21 +103,21 @@ data_ggp <- data.frame(x = df_restopon$dias,                            # Reshap
                              rep('res_topo4n', nrow(df_restopon))))
 
 data_ggp$group <- ifelse(data_ggp$group =="res_topo0n", "SSM y NDVI", 
-                         ifelse(data_ggp$group =="res_topo1n", 'Elevaci髇 Baja', 
-                              ifelse(data_ggp$group=="res_topo2n", "Elevaci髇 Media",
-                                     ifelse(data_ggp$group =="res_topo3n", "Elevaci髇 Alta",
-                                            ifelse(data_ggp$group =="res_topo4n", "Elevaci髇 Muy Alta","")))))
-colnames(data_ggp)[3] <- "Categor韆"
+                         ifelse(data_ggp$group =="res_topo1n", 'Elevaci贸n Baja', 
+                              ifelse(data_ggp$group=="res_topo2n", "Elevaci贸n Media",
+                                     ifelse(data_ggp$group =="res_topo3n", "Elevaci贸n Alta",
+                                            ifelse(data_ggp$group =="res_topo4n", "Elevaci贸n Muy Alta","")))))
+colnames(data_ggp)[3] <- "Categor铆a"
 
 
-ggp <- ggplot(data_ggp, aes(x, y, col = Categor韆)) +    # Create ggplot2 plot
-      geom_line(aes(linetype=Categor韆),                 # Line type depends on col
+ggp <- ggplot(data_ggp, aes(x, y, col = Categor铆a)) +    # Create ggplot2 plot
+      geom_line(aes(linetype=Categor铆a),                 # Line type depends on col
                 size = 1.05) +                           # Thicker line
-      geom_point(aes(shape=Categor韆),                   # Shape depends on col
+      geom_point(aes(shape=Categor铆a),                   # Shape depends on col
                  size = 2)+   
-      ggtitle("Correlaci髇 SSM y NDVI") +                # T韙ulo plot
-      xlab("D韆s/A駉")+                                      # Etiqueta del eje x
-      ylab("Correlaci髇") + ylim(-0.5, 0.9)              # Etiqueta del eje y   
+      ggtitle("Correlaci贸n SSM y NDVI") +                # T铆tulo plot
+      xlab("D铆as/A帽o")+                                      # Etiqueta del eje x
+      ylab("Correlaci贸n") + ylim(-0.5, 0.9)              # Etiqueta del eje y   
 ggp 
 
 
@@ -142,7 +142,7 @@ cor.test(x= dfpr$x, y= dfpr$y)
 #Regresion
 ggplot(dfpr)+
   geom_smooth(aes(x=x, y=y, colour = y))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                panel.background = element_blank(), axis.line = element_line(colour = "black"))+ xlab("Precipitaci髇(mm/dia")+ylab("SSM(%)") 
+                                                panel.background = element_blank(), axis.line = element_line(colour = "black"))+ xlab("Precipitaci贸n(mm/dia")+ylab("SSM(%)") 
 
 #Grupo 1 de correlacion Precipitacion con humedad 
 dat_topo1p <- dat@data[dat@data$Kmeasn_topogra4_mascaraCoberVeg == 1,]
@@ -214,20 +214,20 @@ data_ggp <- data.frame(x = df_restopon$dias,                            # Reshap
                                  rep('res_topo3p', nrow(df_restopop)),
                                  rep('res_topo4p', nrow(df_restopop))))
 
-data_ggp$group <- ifelse(data_ggp$group =="res_topo0p", "Precipitaci髇 y SSM", 
-                         ifelse(data_ggp$group =="res_topo1p", 'Elevaci髇 Baja', 
-                                ifelse(data_ggp$group=="res_topo2p", "Elevaci髇 Media",
-                                       ifelse(data_ggp$group =="res_topo3p", "Elevaci髇 Alta",
-                                              ifelse(data_ggp$group =="res_topo4p", "Elevaci髇 Muy Alta","")))))
-colnames(data_ggp)[3] <- "Categor韆"
+data_ggp$group <- ifelse(data_ggp$group =="res_topo0p", "Precipitaci贸n y SSM", 
+                         ifelse(data_ggp$group =="res_topo1p", 'Elevaci贸n Baja', 
+                                ifelse(data_ggp$group=="res_topo2p", "Elevaci贸n Media",
+                                       ifelse(data_ggp$group =="res_topo3p", "Elevaci贸n Alta",
+                                              ifelse(data_ggp$group =="res_topo4p", "Elevaci贸n Muy Alta","")))))
+colnames(data_ggp)[3] <- "Categor铆a"
 
 
-ggp <- ggplot(data_ggp, aes(x, y, col = Categor韆)) +    # Create ggplot2 plot
-  geom_line(aes(linetype=Categor韆),                 # Line type depends on col
+ggp <- ggplot(data_ggp, aes(x, y, col = Categor铆a)) +    # Create ggplot2 plot
+  geom_line(aes(linetype=Categor铆a),                 # Line type depends on col
             size = 1.05) +                           # Thicker line
-  geom_point(aes(shape=Categor韆),                   # Shape depends on col
+  geom_point(aes(shape=Categor铆a),                   # Shape depends on col
              size = 2)+   
-  ggtitle("Correlaci髇 Precipitaci髇 y SSM") +                # T韙ulo plot
-  xlab("D韆s/A駉")+                                      # Etiqueta del eje x
-  ylab("Correlaci髇") + ylim(-0.5, 0.9)              # Etiqueta del eje y   
+  ggtitle("Correlaci贸n Precipitaci贸n y SSM") +                # T铆tulo plot
+  xlab("D铆as/A帽o")+                                      # Etiqueta del eje x
+  ylab("Correlaci贸n") + ylim(-0.5, 0.9)              # Etiqueta del eje y   
 ggp 
