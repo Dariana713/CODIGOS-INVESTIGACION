@@ -49,7 +49,7 @@ saveRDS(d, file='base_completa_fapar_ssm_pre_ET_Tem_topoPOSITIVO.rds')
 b <- as(UnionFaparNegativo, 'SpatialPixelsDataFrame')
 saveRDS(b, file='base_completa_fapar_ssm_pre_ET_Tem_topoNEGATIVO.rds')
 
-#Codigo de Abdi, A.M., Vrieling, A., Yengoh, G.T., Anyamba, A., Seaquist, J.W., Ummenhofer, C.C. and Ardö, J., 2016. The El Niño–La Niña cycle and recent trends in supply and demand of net primary productivity in African drylands. Climatic Change, 138(1-2), pp.111-125. [PDF]
+#Codigo de Abdi, A.M., Vrieling, A., Yengoh, G.T., Anyamba, A., Seaquist, J.W., Ummenhofer, C.C. and Ardö, J., 2016. 
 
 gridcorts <- function(rasterstack, method, type=c("corel","pval","both")){
   # Values for (layers, ncell, ncol, nrow, method, crs, extent) come straight from the input raster stack
