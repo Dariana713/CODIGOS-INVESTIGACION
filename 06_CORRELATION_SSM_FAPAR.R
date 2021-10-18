@@ -40,7 +40,7 @@ ggplot(dat1, aes(x=Preemanualmean, y=SManualmean, color=as.factor(Kmeasn_topogra
 
 ggplot(dat1)+
   geom_smooth(aes(x=Preemanualmean, y=SManualmean, color=as.factor(Kmeasn_topogra4_mascaraCoberVeg)))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                                                                             panel.background = element_blank(), axis.line = element_line(colour = "black"))+ xlab("Precipitació (mm)")+ylab("SSM(%)") 
+                                                                                                             panel.background = element_blank(), axis.line = element_line(colour = "black"))+ xlab("PrecipitaciÃ³ (mm)")+ylab("SSM(%)") 
 
 
 #Pruebas humedad y ndvi
@@ -58,7 +58,7 @@ ggplot(dat1, aes(x=Temanualmean, y=SManualmean, color=as.factor(Kmeasn_topogra4_
 
 ggplot(dat1)+
   geom_smooth(aes(x=Temanualmean, y=SManualmean, color=as.factor(Kmeasn_topogra4_mascaraCoberVeg)))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                                                                           panel.background = element_blank(), axis.line = element_line(colour = "black"))+ xlab("Temperatura(º C)")+ylab("SSM(%)") 
+                                                                                                           panel.background = element_blank(), axis.line = element_line(colour = "black"))+ xlab("Temperatura(Âº C)")+ylab("SSM(%)") 
 
 
 t <- train(Temanualmean ~ SManualmean, 
@@ -69,7 +69,7 @@ t
 
 ggplot(dat1)+
   geom_smooth(aes(x=Temanualmean, y=SManualmean, colour = y))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                                     panel.background = element_blank(), axis.line = element_line(colour = "black"))+ xlab("Temperatura (ºC)")+ylab("SSM(%)") 
+                                                                     panel.background = element_blank(), axis.line = element_line(colour = "black"))+ xlab("Temperatura (ÂºC)")+ylab("SSM(%)") 
 
 
 #Pruebas eVAPOTRASNPIRACION Y FAPAR
@@ -78,10 +78,10 @@ ggplot(dat1, aes(x=ETanualmean, y=FAPARemanualmean, color=as.factor(Kmeasn_topog
 
 ggplot(dat1)+
   geom_smooth(aes(x=ETanualmean, y=FAPARemanualmean, color=as.factor(Kmeasn_topogra4_mascaraCoberVeg)))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                                                                              panel.background = element_blank(), axis.line = element_line(colour = "black"))+ xlab("Evapotranspiración (mm)")+ylab("FAPAR") 
+                                                                                                              panel.background = element_blank(), axis.line = element_line(colour = "black"))+ xlab("EvapotranspiraciÃ³n (mm)")+ylab("FAPAR") 
 ggplot(dat1)+
   geom_smooth(aes(x=ETanualmean, y=FAPARemanualmean, colour = y))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                                        panel.background = element_blank(), axis.line = element_line(colour = "black"))+ xlab("Evapotranspiración (mm)")+ylab("FAPAR") 
+                                                                        panel.background = element_blank(), axis.line = element_line(colour = "black"))+ xlab("EvapotranspiraciÃ³n (mm)")+ylab("FAPAR") 
 t <- train(FAPARemanualmean ~ ETanualmean, 
            data = dat1,
            method = "gam")
@@ -92,19 +92,19 @@ t
 
 # Correlacion de SSM y FAPAR revisar el orden de X (ssm) ; Y(ndvi)
 
-dat <- readRDS("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/FAPAR/base_completa_fapar_ssm_pre_ET_Temp_topo.rds")
+dat <- readRDS("D:/AnÃ¡lisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/UniÃ³n para hacer un rds y correlaciones/FAPAR/base_completa_fapar_ssm_pre_ET_Temp_topo.rds")
 
 
 #-----------------------------------------------------------------------------------------------------------------------------------
-# 3. Correlaciónmethod = c("spearman")
+# 3. CorrelaciÃ³nmethod = c("spearman")
 
 corrn <- numeric()
 for (i in 1:36){
   df <- na.omit(data.frame(x=dat@data[,36+i], y=dat@data[,i]))
   corrn[i] <- cor(df$x, df$y)
 }
-resn <- data.frame(Días=1:36, Correlación = corrn)
-plot(resn, col='black', ylim=c(-0.5, 0.9), main="Correlación SSM y fapar")
+resn <- data.frame(DÃ­as=1:36, CorrelaciÃ³n = corrn)
+plot(resn, col='black', ylim=c(-0.5, 0.9), main="CorrelaciÃ³n SSM y fapar")
 lines(resn)
 abline(h=0)
 shapiro.test(corrn)
@@ -128,7 +128,7 @@ for (i in 1:36){
   dfn1 <- na.omit(data.frame(x=dat_topo1n[,36+i], y=dat_topo1n[,i]))
   corrn1[i] <- cor(dfn1$x, dfn1$y)
 }
-res_topo1n  <- data.frame(Días=1:36, Correlación = corrn1)
+res_topo1n  <- data.frame(DÃ­as=1:36, CorrelaciÃ³n = corrn1)
 
 lines(res_topo1n, col='aquamarine4')
 
@@ -182,7 +182,7 @@ dat$meanNDVI <- colMeans(dat@data[1:36])
 #------------------------------------------------------------------------------
 
 #-----------------------------------------------------------------------------------------------------------------------------------
-# 4. Gráfico
+# 4. GrÃ¡fico
 
 df_restopon <- data.frame(c(resn[,(1:2)]), 
                           c(res_topo1n[,2]),
@@ -205,28 +205,28 @@ data_ggp <- data.frame(x = df_restopon$dias,                            # Reshap
                                  rep('res_topo4n', nrow(df_restopon))))
 
 data_ggp$group <- ifelse(data_ggp$group =="res_topo0n", "SSM y NDVI", 
-                         ifelse(data_ggp$group =="res_topo1n", 'Elevación Baja', 
-                                ifelse(data_ggp$group=="res_topo2n", "Elevación Media",
-                                       ifelse(data_ggp$group =="res_topo3n", "Elevación Alta",
-                                              ifelse(data_ggp$group =="res_topo4n", "Elevación Muy Alta","")))))
-colnames(data_ggp)[3] <- "Categoría"
+                         ifelse(data_ggp$group =="res_topo1n", 'ElevaciÃ³n Baja', 
+                                ifelse(data_ggp$group=="res_topo2n", "ElevaciÃ³n Media",
+                                       ifelse(data_ggp$group =="res_topo3n", "ElevaciÃ³n Alta",
+                                              ifelse(data_ggp$group =="res_topo4n", "ElevaciÃ³n Muy Alta","")))))
+colnames(data_ggp)[3] <- "CategorÃ­a"
 
 
-ggp <- ggplot(data_ggp, aes(x, y, col = Categoría)) +    # Create ggplot2 plot
-  geom_line(aes(linetype=Categoría),                 # Line type depends on col
+ggp <- ggplot(data_ggp, aes(x, y, col = CategorÃ­a)) +    # Create ggplot2 plot
+  geom_line(aes(linetype=CategorÃ­a),                 # Line type depends on col
             size = 1.05) +                           # Thicker line
-  geom_point(aes(shape=Categoría),                   # Shape depends on col
+  geom_point(aes(shape=CategorÃ­a),                   # Shape depends on col
              size = 2)+   
-  ggtitle("Correlación SSM y NDVI") +                # Título plot
-  xlab("Días/Año")+                                      # Etiqueta del eje x
-  ylab("Correlación") + ylim(-0.5, 0.9)              # Etiqueta del eje y   
+  ggtitle("CorrelaciÃ³n SSM y NDVI") +                # TÃ­tulo plot
+  xlab("DÃ­as/AÃ±o")+                                      # Etiqueta del eje x
+  ylab("CorrelaciÃ³n") + ylim(-0.5, 0.9)              # Etiqueta del eje y   
 ggp 
 
 
 #--------------------------------------------------------------------------------------
 
 #. 1 Precipitacion y humedad
- dat <- readRDS("D:/Análisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/Unión para hacer un rds y correlaciones/FAPAR/base_completa_fapar_ssm_pre_solape5diasantes_ET_Tem_topo.rds")
+ dat <- readRDS("D:/AnÃ¡lisis de Tesis en Rstudio y SAGA GIS/Codigos de estadisticas/CARPETA DE TRABAJO ACTUALIZADA AL DIA/UniÃ³n para hacer un rds y correlaciones/FAPAR/base_completa_fapar_ssm_pre_solape5diasantes_ET_Tem_topo.rds")
 corrp <- numeric()
 for (i in 1:36){
   dfpr <- na.omit(data.frame(x=dat@data[,i+72], y=dat@data[,i+36]))
@@ -244,7 +244,7 @@ cor.test(x= dfpr$x, y= dfpr$y)
 #Regresion
 ggplot(dfpr)+
   geom_smooth(aes(x=x, y=y, colour = y, method = 'glm'))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                panel.background = element_blank(), axis.line = element_line(colour = "black"))+ xlab("Precipitación(mm/dia")+ylab("SSM(%)") 
+                                                panel.background = element_blank(), axis.line = element_line(colour = "black"))+ xlab("PrecipitaciÃ³n(mm/dia")+ylab("SSM(%)") 
 
 b <- train(y ~ x, 
            data = dfpr,
@@ -323,20 +323,20 @@ data_ggp <- data.frame(x = df_restopon$dias,                            # Reshap
                                  rep('res_topo3p', nrow(df_restopop)),
                                  rep('res_topo4p', nrow(df_restopop))))
 
-data_ggp$group <- ifelse(data_ggp$group =="res_topo0p", "Precipitación y SSM", 
-                         ifelse(data_ggp$group =="res_topo1p", 'Elevación Baja', 
-                                ifelse(data_ggp$group=="res_topo2p", "Elevación Media",
-                                       ifelse(data_ggp$group =="res_topo3p", "Elevación Alta",
-                                              ifelse(data_ggp$group =="res_topo4p", "Elevación Muy Alta","")))))
-colnames(data_ggp)[3] <- "Categoría"
+data_ggp$group <- ifelse(data_ggp$group =="res_topo0p", "PrecipitaciÃ³n y SSM", 
+                         ifelse(data_ggp$group =="res_topo1p", 'ElevaciÃ³n Baja', 
+                                ifelse(data_ggp$group=="res_topo2p", "ElevaciÃ³n Media",
+                                       ifelse(data_ggp$group =="res_topo3p", "ElevaciÃ³n Alta",
+                                              ifelse(data_ggp$group =="res_topo4p", "ElevaciÃ³n Muy Alta","")))))
+colnames(data_ggp)[3] <- "CategorÃ­a"
 
 
-ggp <- ggplot(data_ggp, aes(x, y, col = Categoría)) +    # Create ggplot2 plot
-  geom_line(aes(linetype=Categoría),                 # Line type depends on col
+ggp <- ggplot(data_ggp, aes(x, y, col = CategorÃ­a)) +    # Create ggplot2 plot
+  geom_line(aes(linetype=CategorÃ­a),                 # Line type depends on col
             size = 1.05) +                           # Thicker line
-  geom_point(aes(shape=Categoría),                   # Shape depends on col
+  geom_point(aes(shape=CategorÃ­a),                   # Shape depends on col
              size = 2)+   
-  ggtitle("Correlación Precipitación y SSM") +                # Título plot
-  xlab("Días/Año")+                                      # Etiqueta del eje x
-  ylab("Correlación") + ylim(-0.5, 0.9)              # Etiqueta del eje y   
+  ggtitle("CorrelaciÃ³n PrecipitaciÃ³n y SSM") +                # TÃ­tulo plot
+  xlab("DÃ­as/AÃ±o")+                                      # Etiqueta del eje x
+  ylab("CorrelaciÃ³n") + ylim(-0.5, 0.9)              # Etiqueta del eje y   
 ggp 
